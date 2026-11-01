@@ -120,6 +120,33 @@
   .contact-list li:first-child{border-top:none}
   .contact-list span{color:var(--ink-soft);min-width:4.5em}
 
+  /* signup form */
+  .signup{background:var(--paper-2);border-top:1px solid var(--line)}
+  .form{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:22px 28px}
+  .field{display:flex;flex-direction:column;gap:8px}
+  .field.full{grid-column:1 / -1}
+  .field label,.field legend{font-size:15px;font-weight:500}
+  .field label .req,.field legend .req{color:#b4532a;margin-left:4px}
+  .field input,.field select,.field textarea{
+    font:inherit;font-size:16px;color:var(--ink);background:var(--paper);
+    border:1px solid var(--line);border-radius:6px;padding:12px 14px;width:100%;
+  }
+  .field textarea{min-height:120px;resize:vertical}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--forest);outline-offset:1px;background:var(--white)}
+  .consent{grid-column:1 / -1;display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:var(--ink-soft);background:var(--paper);border-radius:6px;padding:14px 16px}
+  .consent input{margin-top:6px;width:18px;height:18px;flex:none;accent-color:var(--forest)}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .form-actions{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:18px}
+  .form-actions button{font:inherit;font-size:16px;background:var(--forest);color:var(--white);border:none;border-radius:6px;padding:14px 36px;cursor:pointer;transition:background .2s}
+  .form-actions button:hover{background:var(--forest-deep)}
+  .form-actions button:disabled{opacity:.6;cursor:wait}
+  .form-msg{font-size:15px}
+  .form-msg.ok{color:var(--forest)}
+  .form-msg.err{color:#b4532a}
+  @media (max-width:720px){
+    .form{grid-template-columns:1fr;padding:24px 16px}
+  }
+
   footer{padding:56px 0 40px;text-align:center;font-size:14px;color:var(--ink-soft)}
   footer .motto{font-family:"Noto Serif TC",serif;font-size:18px;color:var(--forest-deep);margin-bottom:18px;line-height:1.8}
 
@@ -159,6 +186,7 @@
       <li><a href="#method">方法</a></li>
       <li><a href="#flow">合作流程</a></li>
       <li><a href="#contact">聯絡</a></li>
+      <li><a href="#signup">報名</a></li>
     </ul>
   </div>
 </header>
@@ -313,6 +341,90 @@
     </div>
   </section>
 
+  <!-- Signup form -->
+  <section class="signup" id="signup">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">線上報名</p>
+        <h2>報名諮詢或講座</h2>
+        <p>填寫以下資料後，我們會在收到報名後與您聯繫，確認時間與需求。標示 <span style="color:#b4532a">*</span> 為必填欄位。</p>
+      </div>
+
+      <form class="form" id="signupForm" novalidate>
+        <div class="field">
+          <label for="f-name">姓名<span class="req">*</span></label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="50">
+        </div>
+        <div class="field">
+          <label for="f-company">公司／單位名稱<span class="req">*</span></label>
+          <input id="f-company" name="company" type="text" autocomplete="organization" required maxlength="100">
+        </div>
+        <div class="field">
+          <label for="f-title">職稱</label>
+          <input id="f-title" name="title" type="text" autocomplete="organization-title" maxlength="50">
+        </div>
+        <div class="field">
+          <label for="f-phone">聯絡電話<span class="req">*</span></label>
+          <input id="f-phone" name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="例如 0912-345-678">
+        </div>
+        <div class="field">
+          <label for="f-email">Email<span class="req">*</span></label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="100">
+        </div>
+        <div class="field">
+          <label for="f-industry">產業別</label>
+          <input id="f-industry" name="industry" type="text" maxlength="50" placeholder="例如 金屬加工、食品製造">
+        </div>
+        <div class="field">
+          <label for="f-size">企業規模</label>
+          <select id="f-size" name="size">
+            <option value="">請選擇</option>
+            <option>10 人以下</option>
+            <option>11–50 人</option>
+            <option>51–200 人</option>
+            <option>201–500 人</option>
+            <option>500 人以上</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-item">報名項目<span class="req">*</span></label>
+          <select id="f-item" name="item" required>
+            <option value="">請選擇</option>
+            <option>企業健檢諮詢</option>
+            <option>企業永續與低碳轉型諮詢</option>
+            <option>世代傳承與家族治理諮詢</option>
+            <option>永續講座／課程</option>
+            <option>其他</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-people">預計參加人數</label>
+          <input id="f-people" name="people" type="number" min="1" max="500" value="1">
+        </div>
+        <div class="field full">
+          <label for="f-message">想了解的問題或需求說明</label>
+          <textarea id="f-message" name="message" maxlength="1000" placeholder="例如：客戶要求提供碳排數據，想了解碳盤查要從哪裡開始。"></textarea>
+        </div>
+
+        <!-- 防機器人欄位，真人看不到，請勿刪除 -->
+        <div class="hp" aria-hidden="true">
+          <label for="f-website">Website</label>
+          <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" name="consent" id="f-consent" value="同意" required>
+          <span>我同意亦麟國際顧問責任有限公司蒐集並使用以上個人資料，僅用於本次報名聯繫、活動通知與服務諮詢，不會提供給第三方。<span class="req" style="color:#b4532a">*</span></span>
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" id="f-submit">送出報名</button>
+          <span class="form-msg" id="f-msg" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -325,6 +437,57 @@
 <script>
   document.getElementById('y').textContent = new Date().getFullYear();
   document.querySelectorAll('#menu a').forEach(a => a.addEventListener('click', () => document.getElementById('menu').classList.remove('open')));
+
+  /* ===== 報名表送出到 Google Sheet =====
+     部署 Apps Script 後，把「網頁應用程式網址」（結尾是 /exec）貼在下面 */
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4APeXYTklIFeoqVLCDqRp5s31wlO67qlAMDSjmjgyBET6K7GqRJdXQCOiB165fz9J/exec';
+
+  const form = document.getElementById('signupForm');
+  const msg = document.getElementById('f-msg');
+  const btn = document.getElementById('f-submit');
+
+  function showMsg(text, type){
+    msg.textContent = text;
+    msg.className = 'form-msg ' + (type || '');
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!form.checkValidity()) {
+      const firstInvalid = form.querySelector(':invalid');
+      if (firstInvalid) firstInvalid.focus();
+      showMsg('請確認必填欄位都已填寫，並勾選個資同意。', 'err');
+      return;
+    }
+    if (SCRIPT_URL.indexOf('PASTE_') === 0) {
+      showMsg('報名表尚未連接 Google Sheet，請先設定 SCRIPT_URL。', 'err');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = '送出中…';
+    showMsg('');
+
+    const data = new URLSearchParams(new FormData(form));
+    data.append('page', location.href);
+
+    try {
+      const res = await fetch(SCRIPT_URL, { method: 'POST', body: data });
+      const json = await res.json();
+      if (json.result === 'success') {
+        form.reset();
+        showMsg('報名已送出，謝謝您！我們會盡快與您聯繫。', 'ok');
+      } else {
+        showMsg(json.message || '送出失敗，請稍後再試，或直接以電話與我們聯繫。', 'err');
+      }
+    } catch (err) {
+      showMsg('網路連線發生問題，請稍後再試，或直接以電話與我們聯繫。', 'err');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '送出報名';
+    }
+  });
 </script>
 </body>
 </html>
