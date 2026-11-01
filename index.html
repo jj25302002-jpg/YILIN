@@ -1,1 +1,330 @@
-hi hi
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>亦麟國際顧問｜企業健檢・企業永續・世代傳承</title>
+<meta name="description" content="亦麟國際顧問責任有限公司，陪伴企業從企業健檢、企業永續與低碳轉型，到世代傳承與家族企業治理。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1d2a26;
+    --ink-soft:#4a5a54;
+    --paper:#f7f5ef;
+    --paper-2:#eee9dd;
+    --forest:#2f5d4e;
+    --forest-deep:#1f3f35;
+    --sea:#3b7186;
+    --line:#d9d2c2;
+    --white:#ffffff;
+    --max:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
+    color:var(--ink);background:var(--paper);line-height:1.85;font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:"Noto Serif TC",serif;font-weight:700;line-height:1.35;letter-spacing:.02em}
+
+  /* header */
+  header{position:sticky;top:0;z-index:20;background:rgba(247,245,239,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;flex-direction:column;line-height:1.2}
+  .brand b{font-family:"Noto Serif TC",serif;font-size:20px;letter-spacing:.08em}
+  .brand small{font-size:11px;color:var(--ink-soft);letter-spacing:.12em}
+  .nav ul{display:flex;gap:28px;list-style:none;font-size:15px}
+  .nav ul a{color:var(--ink-soft);transition:color .2s}
+  .nav ul a:hover{color:var(--forest)}
+  .menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:6px;padding:6px 12px;font:inherit;font-size:14px;color:var(--ink);cursor:pointer}
+
+  /* hero */
+  .hero{padding:110px 0 96px;position:relative;overflow:hidden}
+  .hero::after{
+    content:"";position:absolute;right:-180px;top:-120px;width:560px;height:560px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,rgba(59,113,134,.18),rgba(47,93,78,.10) 55%,transparent 70%);
+    pointer-events:none;
+  }
+  .eyebrow{font-size:14px;letter-spacing:.24em;color:var(--forest);margin-bottom:20px}
+  .hero h1{font-size:clamp(32px,5.2vw,56px);max-width:16em}
+  .hero p.lead{margin-top:28px;max-width:34em;color:var(--ink-soft);font-size:18px}
+  .path{margin-top:48px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:16px}
+  .path span{background:var(--white);border:1px solid var(--line);border-radius:999px;padding:8px 20px}
+  .path i{font-style:normal;color:var(--forest)}
+  .btn{display:inline-block;margin-top:44px;background:var(--forest);color:var(--white);padding:14px 30px;border-radius:6px;font-size:16px;transition:background .2s}
+  .btn:hover{background:var(--forest-deep)}
+
+  section{padding:96px 0}
+  .sec-head{margin-bottom:48px;max-width:40em}
+  .sec-head .eyebrow{margin-bottom:12px}
+  .sec-head h2{font-size:clamp(26px,3.4vw,38px)}
+  .sec-head p{margin-top:16px;color:var(--ink-soft)}
+
+  /* about */
+  .about{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
+  .about-text p+p{margin-top:18px}
+  .about blockquote{
+    font-family:"Noto Serif TC",serif;font-size:clamp(20px,2.4vw,26px);line-height:1.7;color:var(--forest-deep);
+    border-left:3px solid var(--forest);padding-left:24px;
+  }
+
+  /* services */
+  .services{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:36px 30px;display:flex;flex-direction:column}
+  .card .num{font-family:"Noto Serif TC",serif;font-size:14px;color:var(--sea);letter-spacing:.2em}
+  .card h3{font-size:26px;margin:10px 0 6px}
+  .card .sub{font-size:14px;color:var(--ink-soft);margin-bottom:18px}
+  .card p.q{font-size:16px;padding:14px 16px;background:var(--paper);border-radius:6px;margin-bottom:20px}
+  .card ul{list-style:none;font-size:15.5px}
+  .card li{padding:9px 0;border-top:1px dashed var(--line)}
+  .card li:first-child{border-top:none}
+  .card li b{font-weight:500}
+  .card .note{margin-top:auto;padding-top:20px;font-size:13.5px;color:var(--ink-soft)}
+
+  /* method */
+  .method{background:var(--forest-deep);color:#e9efe9}
+  .method .eyebrow{color:#a9c9b9}
+  .method .sec-head p{color:#bfd0c6}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s}
+  .step{padding:28px 24px;border-left:1px solid rgba(255,255,255,.18)}
+  .step:first-child{border-left:none}
+  .step b{display:block;font-family:"Noto Serif TC",serif;font-size:24px;color:#fff;margin-bottom:10px}
+  .step b::before{counter-increment:s;content:"0" counter(s);display:block;font-size:13px;letter-spacing:.2em;color:#a9c9b9;margin-bottom:6px}
+  .step p{font-size:15.5px;color:#cfdcd4}
+
+  /* principles */
+  .principles{display:grid;grid-template-columns:repeat(2,1fr);gap:20px 48px}
+  .pr{padding:22px 0;border-top:1px solid var(--line)}
+  .pr h3{font-size:19px;margin-bottom:6px}
+  .pr p{font-size:15.5px;color:var(--ink-soft)}
+
+  /* flow */
+  .flow{background:var(--paper-2)}
+  .flow ol{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:16px;counter-reset:f}
+  .flow li{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:22px 18px;font-size:15.5px}
+  .flow li::before{counter-increment:f;content:"STEP " counter(f);display:block;font-size:12px;letter-spacing:.18em;color:var(--sea);margin-bottom:8px}
+  .flow li b{display:block;font-size:17px;margin-bottom:4px}
+
+  /* contact */
+  .contact-box{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:48px;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center}
+  .contact-box h2{font-size:clamp(24px,3vw,32px)}
+  .contact-box p{margin-top:14px;color:var(--ink-soft)}
+  .contact-list{list-style:none;font-size:16px}
+  .contact-list li{padding:12px 0;border-top:1px solid var(--line);display:flex;gap:16px}
+  .contact-list li:first-child{border-top:none}
+  .contact-list span{color:var(--ink-soft);min-width:4.5em}
+
+  footer{padding:56px 0 40px;text-align:center;font-size:14px;color:var(--ink-soft)}
+  footer .motto{font-family:"Noto Serif TC",serif;font-size:18px;color:var(--forest-deep);margin-bottom:18px;line-height:1.8}
+
+  @media (max-width:900px){
+    .services{grid-template-columns:1fr}
+    .about-grid{grid-template-columns:1fr;gap:36px}
+    .steps{grid-template-columns:1fr 1fr}
+    .step:nth-child(3){border-left:none}
+    .flow ol{grid-template-columns:1fr 1fr}
+    .principles{grid-template-columns:1fr}
+    .contact-box{grid-template-columns:1fr;padding:32px 24px}
+  }
+  @media (max-width:720px){
+    body{font-size:16px}
+    .wrap{padding:0 16px}
+    .menu-btn{display:block}
+    .nav ul{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line)}
+    .nav ul.open{display:flex}
+    .nav ul a{display:block;padding:14px 16px;border-top:1px solid var(--line)}
+    .hero{padding:72px 0 64px}
+    section{padding:64px 0}
+    .steps,.flow ol{grid-template-columns:1fr}
+    .step{border-left:none;border-top:1px solid rgba(255,255,255,.18)}
+    .step:first-child{border-top:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="brand"><b>亦麟國際</b><small>YI LIN INTERNATIONAL CONSULTING</small></a>
+    <button class="menu-btn" aria-label="開啟選單" onclick="document.getElementById('menu').classList.toggle('open')">選單</button>
+    <ul id="menu">
+      <li><a href="#about">關於我們</a></li>
+      <li><a href="#services">服務</a></li>
+      <li><a href="#method">方法</a></li>
+      <li><a href="#flow">合作流程</a></li>
+      <li><a href="#contact">聯絡</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">企業經營・永續轉型・世代傳承</p>
+      <h1>看清現況，走向永續，<br>把好企業穩穩交給下一代。</h1>
+      <p class="lead">亦麟國際顧問責任有限公司陪伴企業走過三個關鍵階段。我們從真實的經營現場出發，把複雜的財務、碳管理與治理議題，整理成企業能理解、能執行、能持續追蹤的方案。</p>
+      <div class="path" aria-label="服務路徑">
+        <span>企業健檢</span><i>→</i><span>企業永續</span><i>→</i><span>世代傳承</span>
+      </div>
+      <a href="#contact" class="btn">預約需求諮詢</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <blockquote>好的企業，不只今天經營得好，更能把制度、人才與責任，交給下一代。</blockquote>
+      <div class="about-text">
+        <p class="eyebrow">關於亦麟國際</p>
+        <p>企業在不同階段面對的問題並不相同：有時需要先看清楚自己的體質，有時要回應客戶與供應鏈的減碳要求，有時則是創辦人開始思考交棒。</p>
+        <p>亦麟國際以「企業健檢 → 企業永續 → 世代傳承」為服務路徑，依企業的實際需求選擇切入點，不強迫依序採購，也不以推銷特定認證作為預設結論。涉及法律、稅務、審計或信託等需專業資格的事項，我們負責策略規劃與專案統籌，並與合格的律師、會計師及專業機構分工合作。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">我們的服務</p>
+        <h2>三個階段，一條連貫的路徑</h2>
+        <p>每個模組都可以獨立委託，也能依診斷結果銜接下一階段。</p>
+      </div>
+      <div class="services">
+
+        <article class="card">
+          <span class="num">A｜01</span>
+          <h3>企業健檢</h3>
+          <p class="sub">企業健檢與經營診斷</p>
+          <p class="q">企業現在處於什麼狀態？哪些問題應該優先改善？</p>
+          <ul>
+            <li><b>六大構面診斷</b>：財務經營、生產營運、環境永續、供應鏈、治理法遵、人力傳承</li>
+            <li><b>風險與差距分析</b>：區分事實、推論與建議，重大法遵風險不被平均分數掩蓋</li>
+            <li><b>改善路線</b>：排定優先順序與 3／6／12 個月行動計畫</li>
+          </ul>
+          <p class="note">交付：企業概況、六構面評估、風險清單、改善計畫與管理層摘要。</p>
+        </article>
+
+        <article class="card">
+          <span class="num">B｜02</span>
+          <h3>企業永續</h3>
+          <p class="sub">企業永續與低碳轉型</p>
+          <p class="q">排放從哪裡來？怎麼減、先從哪裡開始？</p>
+          <ul>
+            <li><b>組織碳盤查</b>：依 ISO 14064-1 / GHG Protocol 建立排放清冊與查證準備</li>
+            <li><b>產品碳足跡</b>：依 ISO 14067 盤點生命週期與排放熱點</li>
+            <li><b>減碳與能源轉型</b>：節能、設備汰換、再生能源，搭配投資成本與回收期評估</li>
+            <li><b>ESG 與供應鏈</b>：重大議題、供應商風險分級、客戶問卷與資訊揭露</li>
+          </ul>
+          <p class="note">原則：先推動實質減排，再評估碳權或碳中和主張；碳權不取代企業本身的減排行動。</p>
+        </article>
+
+        <article class="card">
+          <span class="num">C｜03</span>
+          <h3>世代傳承</h3>
+          <p class="sub">世代傳承與家族企業治理</p>
+          <p class="q">創辦人交棒後，企業如何持續穩定營運？</p>
+          <ul>
+            <li><b>接班與經營權</b>：候選人評估、培育授權、專業經理人制度，不預設由家族成員接班</li>
+            <li><b>股權與治理</b>：股權結構、表決權、股東協議與跨境風險盤點</li>
+            <li><b>家族治理</b>：家族憲章、家族會議、信託工具比較與家族辦公室可行性評估</li>
+          </ul>
+          <p class="note">交付：家族企業診斷、接班方案、治理建議與 3–5 年傳承路線圖。</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Method -->
+  <section class="method" id="method">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">我們的方法</p>
+        <h2>碳盤查是起點，不是終點</h2>
+        <p>它比較像一張地圖：先知道排放在哪裡，才知道下一步從哪裡改善。</p>
+      </div>
+      <div class="steps">
+        <div class="step"><b>看見</b><p>確認組織與報告邊界，找出能源、製程與供應鏈中的排放來源。</p></div>
+        <div class="step"><b>計算</b><p>蒐集活動數據、選用可追溯的係數，建立可被查證的基準。</p></div>
+        <div class="step"><b>改善</b><p>從熱點著手，設計兼顧成本、回收期與可行性的減碳方案。</p></div>
+        <div class="step"><b>持續追蹤</b><p>設定 KPI 與年度檢視機制，讓改善成為日常管理的一部分。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">我們的原則</p>
+        <h2>專業、務實、可落地</h2>
+      </div>
+      <div class="principles">
+        <div class="pr"><h3>數據有來源</h3><p>不虛構排放係數、減排量、財務數據或法規；明示資料來源、期間、邊界與假設，資料缺漏會清楚標示。</p></div>
+        <div class="pr"><h3>需求先於方案</h3><p>先確認企業的國家、產業、規模與目標，再提出分階段方案，不以單一認證或工具作為預設答案。</p></div>
+        <div class="pr"><h3>專業分工</h3><p>法律、稅務、審計、信託與查證事項，由合格的專業人士與機構確認，我們負責策略與專案統籌。</p></div>
+        <div class="pr"><h3>保護隱私</h3><p>只蒐集必要資料，重視資料保密與權限管理；涉及利益衝突的事項安排獨立審查。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flow -->
+  <section class="flow" id="flow">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">合作流程</p>
+        <h2>從一次需求對談開始</h2>
+      </div>
+      <ol>
+        <li><b>需求諮詢</b>了解產業、規模、目標與現有資料。</li>
+        <li><b>資料盤點</b>提供訪談提綱與資料需求清單。</li>
+        <li><b>診斷分析</b>產出現況評估、風險與差距分析。</li>
+        <li><b>方案規劃</b>排定優先順序與分階段路線圖。</li>
+        <li><b>執行追蹤</b>建立 KPI 與年度追蹤機制。</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-box">
+        <div>
+          <h2>想先聊聊企業目前的狀況？</h2>
+          <p>不需要先準備完整資料。告訴我們產業、規模與您最在意的問題，我們會協助判斷從哪一個模組開始最合適。</p>
+        </div>
+        <ul class="contact-list">
+          <!-- 請替換為實際聯絡資訊 -->
+          <li><span>電話</span>（請填入）</li>
+          <li><span>Email</span>（請填入）</li>
+          <li><span>地址</span>（請填入）</li>
+          <li><span>服務時間</span>（請填入）</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="motto">把海洋還給海洋，把森林還給森林，把大自然還給大家。</p>
+    <p>© <span id="y"></span> 亦麟國際顧問責任有限公司 Yi Lin International Consulting</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+  document.querySelectorAll('#menu a').forEach(a => a.addEventListener('click', () => document.getElementById('menu').classList.remove('open')));
+</script>
+</body>
+</html>
