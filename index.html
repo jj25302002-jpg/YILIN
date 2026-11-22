@@ -209,6 +209,9 @@
 </div>
 
 <script>
+  /* ===== Apps Script 網頁應用程式網址（重新部署若網址改變，請更新這裡） ===== */
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2fGplcJNQlQb2NstHB3E4eaXkjmxdelmsZmgnD3YF1JerfUKt8xsnt59KxBb2S3cKfQ/exec';
+
   /* ===== 時段設定（可依需求調整） ===== */
   const DAYS_AHEAD = 14;           // 顯示未來幾天（只列工作日）
   const TIME_SLOTS = [
@@ -396,18 +399,33 @@
       showMsg('送出失敗：' + (error && error.message ? error.message : error) + '。請稍後再試。', 'err');
     };
 
+    const payload = {
+      name: data.name,
+      company: data.company,
+      phone: data.phone,
+      industry: data.industry,
+      slots: data.slots.join('\n'),
+    };
+
     if (typeof google !== 'undefined' && google.script && google.script.run) {
+      // 由 Apps Script 網址開啟時：直接呼叫 code.gs
       google.script.run
         .withSuccessHandler(onOk)
         .withFailureHandler(onErr)
-        // 對應 code.gs：addCustomer(name, company, phone, industry)
-        // 第 5 個參數是勾選的時段文字；目前的 addCustomer 會忽略它，
-        // 若在 addCustomer 加上第 5 個參數即可一併寫入 Notion（見說明）
-        .addCustomer(data.name, data.company, data.phone, data.industry, data.slots.join('\n'));
+        .addCustomer(payload.name, payload.company, payload.phone, payload.industry, payload.slots);
     } else {
-      // 非 Apps Script 環境（例如直接用瀏覽器開檔預覽）：只模擬送出
-      console.log('預覽模式，送出資料：', data);
-      setTimeout(() => onOk({ ok: true, preview: true }), 600);
+      // 放在其他網站或本機開啟時：POST 到 Apps Script 網址（由 code.gs 的 doPost 接收）
+      // 不設定 Content-Type（預設 text/plain），避免瀏覽器 CORS 預檢被擋
+      fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload), redirect: 'follow' })
+        .then(r => r.text())
+        .then(t => {
+          let res;
+          try { res = JSON.parse(t); }
+          catch (_) { throw new Error('伺服器回應不是 JSON，請確認部署權限為「所有人」並已部署新版本'); }
+          if (!res.ok) throw new Error(res.error || '未知錯誤');
+          onOk(res);
+        })
+        .catch(onErr);
     }
   });
 
