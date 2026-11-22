@@ -132,12 +132,11 @@
     <details class="guide" open>
       <summary>使用說明</summary>
       <ol class="steps">
-        <li><b>填寫基本資料</b><span>姓名、公司名稱為必填；聯繫電話請填寫可直接聯絡到您的號碼（手機或市話皆可）。</span></li>
-        <li><b>選擇諮詢方式與主題</b><span>可複選偏好的諮詢方式，並簡單說明想諮詢的內容，方便我們安排合適的顧問。</span></li>
+        <li><b>填寫基本資料</b><span>姓名、公司名稱、聯繫電話、行業類別皆為必填；電話請填可直接聯絡到您的號碼（手機或市話皆可）。</span></li>
         <li><b>勾選可諮詢的時段</b><span>在時段表中點一下格子即可選取，再點一次取消。點「日期」可整欄全選，點「時段」可整列全選。請至少選擇 1 個時段，選越多越容易安排。</span></li>
         <li><b>送出</b><span>確認資料無誤後按「送出調查」。出現成功訊息即代表已收到，顧問會在 2 個工作天內與您確認最終時間。</span></li>
       </ol>
-      <div class="note">ⓘ 時段表顯示未來兩週的工作日（週一至週五）。若以上時段都不方便，請在「備註」說明您可以的時間。</div>
+      <div class="note">ⓘ 時段表顯示未來兩週的工作日（週一至週五）。若以上時段都不方便，請直接來電與我們聯繫。</div>
     </details>
   </section>
 
@@ -156,10 +155,6 @@
       <div>
         <label class="f" for="phone">聯繫電話<span class="req">*</span></label>
         <input type="tel" id="phone" required autocomplete="tel" placeholder="0912-345-678">
-      </div>
-      <div>
-        <label class="f" for="email">電子郵件</label>
-        <input type="email" id="email" autocomplete="email" placeholder="name@company.com">
       </div>
       <div>
         <label class="f" for="industry">行業類別<span class="req">*</span></label>
@@ -183,24 +178,8 @@
       </div>
     </div>
 
-    <h2 style="margin-top:28px">二、諮詢需求</h2>
-    <div class="grid">
-      <div class="full">
-        <span class="f" style="display:block;font-weight:600;margin-bottom:6px">偏好的諮詢方式<span class="req">*</span></span>
-        <div class="chips" id="modes">
-          <label><input type="checkbox" value="視訊會議"><span>視訊會議</span></label>
-          <label><input type="checkbox" value="電話諮詢"><span>電話諮詢</span></label>
-          <label><input type="checkbox" value="顧問到府"><span>顧問到府</span></label>
-          <label><input type="checkbox" value="至本公司面談"><span>至本公司面談</span></label>
-        </div>
-      </div>
-      <div class="full">
-        <label class="f" for="topic">想諮詢的主題</label>
-        <textarea id="topic" placeholder="例如：數位轉型規劃、政府補助申請、內部流程改善…"></textarea>
-      </div>
-    </div>
 
-    <h2 style="margin-top:28px">三、可諮詢時段<span class="req">*</span></h2>
+    <h2 style="margin-top:28px">二、可諮詢時段<span class="req">*</span></h2>
     <div class="toolbar">
       <button type="button" id="selAm">全選上午</button>
       <button type="button" id="selPm">全選下午</button>
@@ -212,12 +191,6 @@
     </div>
     <p class="hint">點格子選取／取消；點表頭日期整欄選取，點左側時段整列選取。</p>
 
-    <div class="grid" style="margin-top:16px">
-      <div class="full">
-        <label class="f" for="note">備註</label>
-        <textarea id="note" placeholder="其他需要我們知道的事，或上表以外您方便的時間"></textarea>
-      </div>
-    </div>
 
     <div id="msg" class="msg" role="alert"></div>
     <div class="actions">
@@ -375,18 +348,13 @@
   function collect() {
     const v = id => $(id).value.trim();
     const industry = v('industry') === '__other' ? v('industryOther') : v('industry');
-    const modes = [...document.querySelectorAll('#modes input:checked')].map(i => i.value);
     const slots = [...selected].sort();
     return {
       name: v('name'),
       company: v('company'),
       phone: v('phone'),
-      email: v('email'),
       industry: industry,
-      mode: modes.join('、'),
-      topic: v('topic'),
       slots: slots,
-      note: v('note'),
     };
   }
 
@@ -395,9 +363,7 @@
     if (!d.company) return ['請填寫公司名稱', 'company'];
     if (!d.phone) return ['請填寫聯繫電話', 'phone'];
     if (!/^[\d\s\-+()#]{8,20}$/.test(d.phone)) return ['聯繫電話格式不正確', 'phone'];
-    if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return ['電子郵件格式不正確', 'email'];
     if (!d.industry) return ['請選擇或填寫行業類別', $('industry').value === '__other' ? 'industryOther' : 'industry'];
-    if (!d.mode) return ['請至少選擇一種諮詢方式', null];
     if (!d.slots.length) return ['請至少勾選一個可諮詢時段', null];
     return null;
   }
@@ -434,7 +400,10 @@
       google.script.run
         .withSuccessHandler(onOk)
         .withFailureHandler(onErr)
-        .submitConsultation(data);
+        // 對應 code.gs：addCustomer(name, company, phone, industry)
+        // 第 5 個參數是勾選的時段文字；目前的 addCustomer 會忽略它，
+        // 若在 addCustomer 加上第 5 個參數即可一併寫入 Notion（見說明）
+        .addCustomer(data.name, data.company, data.phone, data.industry, data.slots.join('\n'));
     } else {
       // 非 Apps Script 環境（例如直接用瀏覽器開檔預覽）：只模擬送出
       console.log('預覽模式，送出資料：', data);
