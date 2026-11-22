@@ -1,436 +1,849 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <base target="_top">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>企業諮詢時段調查</title>
-  <style>
-    :root {
-      --bg: #f5f6f8;
-      --card: #ffffff;
-      --text: #1f2933;
-      --muted: #616e7c;
-      --line: #e1e5ea;
-      --primary: #1d5bd8;
-      --primary-soft: #e8effc;
-      --ok: #1f8a4c;
-      --err: #c62828;
-      --radius: 12px;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-    .wrap { max-width: 920px; margin: 0 auto; padding: 32px 16px 64px; }
-    header h1 { margin: 0 0 4px; font-size: 1.75rem; }
-    header p { margin: 0; color: var(--muted); }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 24px;
-      margin-top: 20px;
-    }
-    .card h2 { margin: 0 0 16px; font-size: 1.15rem; }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>亦麟國際顧問責任有限公司｜企業介紹與諮詢預約</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F2F6F4;
+  --surface: #FFFFFF;
+  --ink: #12313A;
+  --muted: #4A6769;
+  --line: #CBDAD5;
+  --deep: #0E3B43;
+  --deep-2: #14505A;
+  --leaf: #2E7A5B;
+  --glass: #8FD3C0;
+  --amber: #C98A1B;
+  --on-deep: #EAF5F1;
+  --on-deep-muted: #B5D4CD;
+  --err: #B3402E;
+  --ok: #2E7A5B;
+  --serif: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  box-sizing: border-box;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0B1C20;
+    --surface: #12292E;
+    --ink: #E6F0ED;
+    --muted: #9DB8B4;
+    --line: #24424A;
+    --leaf: #5FB68F;
+    --amber: #E3A93A;
+    --err: #FF9C8A;
+    --ok: #5FB68F;
+  }
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: 64px; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.85;
+  -webkit-text-size-adjust: 100%;
+}
+:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 4px; }
+.wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+[hidden] { display: none !important; }
 
-    /* 使用說明 */
-    details.guide summary {
-      cursor: pointer; font-weight: 600; font-size: 1.15rem; list-style: none;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    details.guide summary::-webkit-details-marker { display: none; }
-    details.guide summary::after { content: "收合 ▲"; font-size: .85rem; color: var(--primary); font-weight: 500; }
-    details.guide:not([open]) summary::after { content: "展開 ▼"; }
-    .steps { counter-reset: s; list-style: none; padding: 0; margin: 16px 0 0; }
-    .steps li {
-      counter-increment: s; position: relative; padding: 0 0 14px 44px;
-    }
-    .steps li::before {
-      content: counter(s); position: absolute; left: 0; top: 0;
-      width: 30px; height: 30px; border-radius: 50%;
-      background: var(--primary-soft); color: var(--primary);
-      display: grid; place-items: center; font-weight: 700;
-    }
-    .steps b { display: block; }
-    .steps span { color: var(--muted); font-size: .95rem; }
-    .note { background: #fff8e1; border-radius: 8px; padding: 10px 14px; font-size: .9rem; color: #6b5300; margin-top: 4px; }
+/* header */
+.top {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; }
+.brand { font-family: var(--serif); font-weight: 700; font-size: 1.05rem; letter-spacing: .08em; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.top nav { display: flex; gap: 20px; overflow-x: auto; align-items: center; }
+.top nav a { color: var(--muted); text-decoration: none; font-size: .92rem; white-space: nowrap; padding: 6px 0; }
+.top nav a:hover { color: var(--ink); }
+.top nav a.cta { color: var(--ink); font-weight: 700; border: 1.5px solid var(--leaf); border-radius: 999px; padding: 4px 14px; }
 
-    /* 表單 */
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .full { grid-column: 1 / -1; }
-    label.f { display: block; font-weight: 600; font-size: .95rem; margin-bottom: 6px; }
-    .req { color: var(--err); margin-left: 2px; }
-    input[type=text], input[type=tel], input[type=email], select, textarea {
-      width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px;
-      font: inherit; background: #fff; color: var(--text);
-    }
-    input:focus, select:focus, textarea:focus { outline: 2px solid var(--primary); outline-offset: -1px; border-color: transparent; }
-    textarea { min-height: 90px; resize: vertical; }
-    .hint { font-size: .85rem; color: var(--muted); margin-top: 4px; }
-    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-    .chips label {
-      border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer; user-select: none;
-    }
-    .chips input { display: none; }
-    .chips input:checked + span { color: var(--primary); font-weight: 600; }
-    .chips label:has(input:checked) { border-color: var(--primary); background: var(--primary-soft); }
+/* hero */
+.hero { background: linear-gradient(180deg, var(--deep) 0%, var(--deep-2) 100%); color: var(--on-deep); position: relative; overflow: hidden; }
+.hero .wrap { padding-top: 88px; padding-bottom: 190px; position: relative; z-index: 2; }
+.hero h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(2rem, 5.2vw, 3.7rem); line-height: 1.3; letter-spacing: .03em; margin: 0 0 28px; max-width: 14em; }
+.hero p { max-width: 34em; margin: 0 0 36px; color: var(--on-deep-muted); font-size: 1.08rem; }
+.btns { display: flex; flex-wrap: wrap; gap: 14px; }
+.btn { font: inherit; font-weight: 500; padding: 13px 26px; border-radius: 999px; border: 1.5px solid var(--glass); cursor: pointer; text-decoration: none; display: inline-block; line-height: 1.4; }
+.btn.primary { background: var(--glass); color: #0E3B43; }
+.btn.primary:hover { background: #A6E0D0; }
+.btn.ghost { background: transparent; color: var(--on-deep); }
+.btn.ghost:hover { background: rgba(143,211,192,.15); }
+.waves { position: absolute; left: 0; right: 0; bottom: -1px; height: 170px; z-index: 1; pointer-events: none; }
+.waves svg { position: absolute; left: 0; bottom: 0; width: 200%; height: 100%; }
+.w1 { animation: drift 38s linear infinite; }
+.w2 { animation: drift 54s linear infinite reverse; }
+.w3 { animation: drift 72s linear infinite; }
+@keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .w1, .w2, .w3 { animation: none; }
+  html { scroll-behavior: auto; }
+  .panel-in { animation: none !important; }
+}
 
-    /* 時段表 */
-    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
-    .toolbar .count { margin-left: auto; color: var(--muted); font-size: .9rem; }
-    button {
-      font: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--line);
-      background: #fff; padding: 6px 12px; color: var(--text);
-    }
-    button:hover { border-color: var(--primary); }
-    .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
-    table { border-collapse: collapse; width: 100%; min-width: 640px; }
-    th, td { border-bottom: 1px solid var(--line); text-align: center; padding: 0; }
-    thead th { background: #fafbfc; font-size: .85rem; padding: 8px 4px; cursor: pointer; }
-    thead th:first-child { cursor: default; }
-    thead th small { display: block; color: var(--muted); font-weight: 400; }
-    tbody th { font-size: .85rem; padding: 8px; white-space: nowrap; background: #fafbfc; cursor: pointer; text-align: left; }
-    td.slot { cursor: pointer; height: 44px; transition: background .1s; }
-    td.slot:hover { background: var(--primary-soft); }
-    td.slot.on { background: var(--primary); color: #fff; }
-    td.slot.on::after { content: "✓"; font-weight: 700; }
-    tr:last-child th, tr:last-child td { border-bottom: none; }
+/* sections */
+section { padding: 72px 0; }
+h2 { font-family: var(--serif); font-weight: 700; font-size: clamp(1.5rem, 3.2vw, 2.1rem); line-height: 1.4; letter-spacing: .03em; margin: 0 0 12px; }
+.lead { color: var(--muted); max-width: 36em; margin: 0 0 40px; }
 
-    .actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
-    .btn-primary { background: var(--primary); color: #fff; border-color: var(--primary); padding: 10px 28px; font-weight: 600; }
-    .btn-primary:disabled { opacity: .6; cursor: wait; }
-    .msg { margin-top: 16px; padding: 12px 14px; border-radius: 8px; display: none; }
-    .msg.ok { display: block; background: #e7f6ed; color: var(--ok); }
-    .msg.err { display: block; background: #fdecea; color: var(--err); }
+/* services */
+.svc { display: grid; grid-template-columns: 280px 1fr; gap: 32px; align-items: start; }
+.tabs { display: flex; flex-direction: column; gap: 10px; }
+.tab { text-align: left; font: inherit; color: var(--ink); background: transparent; border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 18px; cursor: pointer; line-height: 1.5; }
+.tab strong { display: block; font-size: 1.05rem; }
+.tab span { color: var(--muted); font-size: .9rem; }
+.tab:hover { border-color: var(--leaf); }
+.tab[aria-selected="true"] { background: var(--deep); border-color: var(--deep); color: var(--on-deep); }
+.tab[aria-selected="true"] span { color: var(--on-deep-muted); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 36px 36px 32px; min-height: 420px; }
+.panel-in { animation: fadein .28s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.panel h3 { font-family: var(--serif); font-size: 1.6rem; margin: 0 0 14px; letter-spacing: .03em; }
+.panel h4 { font-size: .95rem; margin: 26px 0 8px; color: var(--leaf); font-weight: 700; }
+.panel p { margin: 0; max-width: 40em; }
+.panel ol { margin: 0; padding-left: 1.4em; max-width: 40em; }
+.panel li { margin-bottom: 4px; }
+.note { margin-top: 28px; padding: 14px 18px; border-left: 4px solid var(--amber); background: color-mix(in srgb, var(--amber) 10%, var(--surface)); border-radius: 0 10px 10px 0; font-size: .95rem; max-width: 40em; }
 
-    .done { text-align: center; padding: 48px 24px; }
-    .done .icon { font-size: 3rem; }
-    .hidden { display: none !important; }
+/* finder */
+.finder { background: var(--deep); color: var(--on-deep); }
+.finder h2 { color: var(--on-deep); }
+.finder .lead { color: var(--on-deep-muted); }
+.find-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+fieldset { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+legend { font-weight: 700; margin-bottom: 14px; padding: 0; }
+.opt { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border: 1.5px solid rgba(143,211,192,.35); border-radius: 12px; cursor: pointer; line-height: 1.6; }
+.opt:hover { border-color: var(--glass); }
+.opt input { margin-top: 6px; accent-color: var(--glass); width: 18px; height: 18px; flex: none; }
+.opt:has(input:checked) { background: rgba(143,211,192,.16); border-color: var(--glass); }
+.result { background: var(--surface); color: var(--ink); border-radius: 16px; padding: 30px; min-height: 260px; }
+.result .empty { color: var(--muted); }
+.result h3 { font-family: var(--serif); margin: 0 0 10px; font-size: 1.4rem; }
+.result .tag { color: var(--leaf); font-weight: 700; font-size: .92rem; margin: 0 0 4px; }
+.result p { margin: 0 0 14px; }
+.result .acts { display: flex; flex-wrap: wrap; gap: 10px; }
+.result .btn { border-color: var(--deep); color: var(--deep); background: transparent; padding: 10px 22px; }
+.result .btn:hover { background: var(--deep); color: var(--on-deep); }
+@media (prefers-color-scheme: dark) {
+  .result .btn { border-color: var(--glass); color: var(--glass); }
+  .result .btn:hover { background: var(--glass); color: #0E3B43; }
+}
+.small { font-size: .88rem; color: var(--on-deep-muted); margin-top: 18px; max-width: 36em; }
 
-    @media (max-width: 640px) {
-      .grid { grid-template-columns: 1fr; }
-      .card { padding: 18px; }
-      .actions { flex-direction: column-reverse; }
-      .actions button { width: 100%; }
-    }
-  </style>
+/* path */
+.path { list-style: none; padding: 0; margin: 0 0 56px; display: grid; grid-template-columns: repeat(4, 1fr); counter-reset: step; }
+.path li { position: relative; padding: 18px 20px 0 0; }
+.path li::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--leaf); border-radius: 2px; opacity: calc(.35 + (var(--i) * .22)); }
+.path strong { font-family: var(--serif); font-size: 1.15rem; display: block; margin-bottom: 4px; }
+.path span { color: var(--muted); font-size: .92rem; display: block; line-height: 1.7; }
+
+details.acc { border-top: 1px solid var(--line); }
+details.acc:last-of-type { border-bottom: 1px solid var(--line); }
+details.acc summary, details.guide summary { cursor: pointer; padding: 18px 4px; font-weight: 700; font-size: 1.05rem; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+details.acc summary::-webkit-details-marker, details.guide summary::-webkit-details-marker { display: none; }
+details.acc summary::after, details.guide summary::after { content: "+"; font-size: 1.4rem; color: var(--leaf); transition: transform .2s; }
+details.acc[open] summary::after, details.guide[open] summary::after { transform: rotate(45deg); }
+details.acc p { margin: 0 0 20px; padding: 0 4px; color: var(--muted); max-width: 38em; }
+
+/* ===== 預約諮詢 ===== */
+.booking { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.guide { border: 1.5px solid var(--line); border-radius: 14px; padding: 0 20px; margin-bottom: 32px; background: var(--bg); }
+.steps { list-style: none; padding: 0 0 8px; margin: 0; counter-reset: s; }
+.steps li { counter-increment: s; position: relative; padding: 0 0 14px 46px; }
+.steps li::before {
+  content: counter(s); position: absolute; left: 0; top: 2px; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--deep); color: var(--on-deep); display: grid; place-items: center; font-weight: 700; font-size: .9rem;
+}
+.steps b { display: block; }
+.steps span { color: var(--muted); font-size: .94rem; }
+.guide .tip { font-size: .9rem; color: var(--muted); margin: 0 0 18px; }
+
+.bk-form h3 { font-family: var(--serif); font-size: 1.2rem; margin: 32px 0 14px; }
+.bk-form h3:first-child { margin-top: 0; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.field label { font-weight: 700; font-size: .95rem; }
+.req { color: var(--err); margin-left: 2px; }
+.field select, .field textarea, .field input { font: inherit; color: var(--ink); background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; line-height: 1.6; width: 100%; }
+.field textarea { min-height: 120px; resize: vertical; }
+.field select:hover, .field textarea:hover, .field input:hover { border-color: var(--leaf); }
+.hint { color: var(--muted); font-size: .9rem; margin: 0; }
+
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+.toolbar .count { margin-left: auto; color: var(--muted); font-size: .92rem; }
+.mini { font: inherit; font-size: .9rem; cursor: pointer; border-radius: 999px; border: 1.5px solid var(--line); background: transparent; color: var(--ink); padding: 4px 14px; }
+.mini:hover { border-color: var(--leaf); }
+.table-scroll { overflow-x: auto; border: 1.5px solid var(--line); border-radius: 12px; }
+table.slots { border-collapse: collapse; width: 100%; min-width: 660px; }
+.slots th, .slots td { border-bottom: 1px solid var(--line); text-align: center; padding: 0; }
+.slots thead th { background: var(--bg); font-size: .85rem; padding: 8px 4px; cursor: pointer; line-height: 1.4; }
+.slots thead th:first-child { cursor: default; }
+.slots thead th small { display: block; color: var(--muted); font-weight: 400; }
+.slots tbody th { font-size: .85rem; padding: 8px 10px; white-space: nowrap; background: var(--bg); cursor: pointer; text-align: left; font-weight: 500; }
+.slots td.slot { cursor: pointer; height: 44px; transition: background .1s; }
+.slots td.slot:hover { background: color-mix(in srgb, var(--leaf) 14%, transparent); }
+.slots td.slot.on { background: var(--leaf); color: #fff; }
+.slots td.slot.on::after { content: "✓"; font-weight: 700; }
+.slots tr:last-child th, .slots tr:last-child td { border-bottom: none; }
+
+.btn.solid { background: var(--deep); border-color: var(--deep); color: var(--on-deep); }
+.btn.solid:hover { background: var(--deep-2); }
+.btn.line { background: transparent; border-color: var(--leaf); color: var(--ink); padding: 10px 22px; }
+.btn.line:hover { background: color-mix(in srgb, var(--leaf) 14%, transparent); }
+.btn[disabled] { opacity: .55; cursor: wait; }
+@media (prefers-color-scheme: dark) {
+  .btn.solid { background: var(--glass); border-color: var(--glass); color: #0E3B43; }
+}
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; align-items: center; }
+.status { margin: 14px 0 0; font-size: .95rem; min-height: 1.6em; }
+.status.err { color: var(--err); }
+.done { text-align: center; padding: 40px 20px; border: 1.5px solid var(--line); border-radius: 16px; background: var(--bg); }
+.done .icon { font-size: 2.6rem; line-height: 1; }
+.done h3 { font-family: var(--serif); font-size: 1.5rem; margin: 14px 0 8px; }
+.done p { color: var(--muted); max-width: 32em; margin: 0 auto 20px; }
+
+/* closing */
+.close { background: var(--deep-2); color: var(--on-deep); }
+.close blockquote { margin: 0 0 40px; font-family: var(--serif); font-weight: 700; font-size: clamp(1.4rem, 3.6vw, 2.3rem); line-height: 1.7; letter-spacing: .05em; max-width: 20em; }
+footer { background: var(--deep); color: var(--on-deep-muted); font-size: .85rem; padding: 22px 0; }
+
+@media (max-width: 820px) {
+  .svc, .find-grid { grid-template-columns: 1fr; }
+  .tabs { display: grid; grid-template-columns: 1fr 1fr; }
+  .path { grid-template-columns: 1fr 1fr; row-gap: 24px; }
+  .panel { padding: 26px 22px; min-height: 0; }
+  .hero .wrap { padding-top: 56px; padding-bottom: 150px; }
+  section { padding: 52px 0; }
+  .row2 { grid-template-columns: 1fr; gap: 0; }
+}
+@media (max-width: 420px) {
+  .tabs { grid-template-columns: 1fr; }
+  .brand { font-size: .95rem; letter-spacing: .04em; }
+  .actions .btn { width: 100%; text-align: center; }
+}
+</style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>企業諮詢時段調查</h1>
-    <p>請留下您的聯絡資料與方便的時段，我們的顧問會依您勾選的時間與您聯繫、安排諮詢。</p>
-  </header>
 
-  <!-- ===== 使用說明 ===== -->
-  <section class="card">
-    <details class="guide" open>
-      <summary>使用說明</summary>
-      <ol class="steps">
-        <li><b>填寫基本資料</b><span>姓名、公司名稱、聯繫電話、行業類別皆為必填；電話請填可直接聯絡到您的號碼（手機或市話皆可）。</span></li>
-        <li><b>勾選可諮詢的時段</b><span>在時段表中點一下格子即可選取，再點一次取消。點「日期」可整欄全選，點「時段」可整列全選。請至少選擇 1 個時段，選越多越容易安排。</span></li>
-        <li><b>送出</b><span>確認資料無誤後按「送出調查」。出現成功訊息即代表已收到，顧問會在 2 個工作天內與您確認最終時間。</span></li>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">亦麟國際</a>
+    <nav aria-label="頁面導覽">
+      <a href="#services">服務內容</a>
+      <a href="#finder">找到起點</a>
+      <a href="#approach">我們的做法</a>
+      <a href="#booking" class="cta">預約諮詢</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <h1>永續不必一次做完，先知道自己在哪裡</h1>
+      <p>亦麟國際顧問責任有限公司，陪企業從健檢、規劃，到 ESG 認證與碳管理，把複雜的永續工作拆成看得懂、做得到的下一步。</p>
+      <div class="btns">
+        <a class="btn primary" href="#booking">預約免費諮詢</a>
+        <a class="btn ghost" href="#finder">找到我的起點</a>
+      </div>
+    </div>
+    <div class="waves" aria-hidden="true">
+      <svg class="w1" viewBox="0 0 2400 170" preserveAspectRatio="none"><path d="M0 70 C150 30 300 110 450 70 S750 30 900 70 S1050 110 1200 70 C1350 30 1500 110 1650 70 S1950 30 2100 70 S2250 110 2400 70 V170 H0Z" fill="#1B6A6B" opacity=".55"/></svg>
+      <svg class="w2" viewBox="0 0 2400 170" preserveAspectRatio="none"><path d="M0 100 C200 60 400 140 600 100 S1000 60 1200 100 C1400 60 1600 140 1800 100 S2200 60 2400 100 V170 H0Z" fill="#2E7A5B" opacity=".75"/></svg>
+      <svg class="w3" viewBox="0 0 2400 170" preserveAspectRatio="none"><path d="M0 135 C300 105 500 160 800 135 S1100 105 1200 135 C1500 105 1700 160 2000 135 S2300 105 2400 135 V170 H0Z" style="fill: var(--bg)"/></svg>
+    </div>
+  </div>
+
+  <section id="services">
+    <div class="wrap">
+      <h2>四項服務，對應企業不同階段</h2>
+      <p class="lead">不是每家企業都要從同一件事開始。選一項看看，它是什麼、適合什麼時候用、我們會怎麼做。</p>
+      <div class="svc">
+        <div class="tabs" role="tablist" aria-label="服務項目" id="tabs"></div>
+        <div class="panel" id="panel" role="tabpanel" tabindex="0" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="finder" id="finder">
+    <div class="wrap">
+      <h2>你的企業現在最像哪一種情況？</h2>
+      <p class="lead">選一個最接近的描述，我們給你一個合理的起點建議。</p>
+      <div class="find-grid">
+        <fieldset id="situations">
+          <legend>目前最需要處理的是……</legend>
+        </fieldset>
+        <div class="result" id="result" aria-live="polite"></div>
+      </div>
+      <p class="small">這是簡易的方向參考，不構成正式的專業判斷。實際建議需經過訪談與資料確認。</p>
+    </div>
+  </section>
+
+  <section id="approach">
+    <div class="wrap">
+      <h2>我們怎麼看碳管理</h2>
+      <p class="lead">碳盤查不是成績單，比較像一張地圖。先知道排放在哪裡，才知道下一步從哪裡改善。</p>
+      <ol class="path">
+        <li style="--i:0"><strong>看見</strong><span>找出排放與資源使用發生在哪裡</span></li>
+        <li style="--i:1"><strong>計算</strong><span>用一致的方法把現況量化</span></li>
+        <li style="--i:2"><strong>改善</strong><span>從能源、製程與資源循環開始減少</span></li>
+        <li style="--i:3"><strong>持續追蹤</strong><span>定期檢視，讓改善能夠累積</span></li>
       </ol>
-      <div class="note">ⓘ 時段表顯示未來兩週的工作日（週一至週五）。若以上時段都不方便，請直接來電與我們聯繫。</div>
-    </details>
+
+      <h2>我們的工作原則</h2>
+      <p class="lead">點開每一項，看看我們實際會怎麼做。</p>
+      <div>
+        <details class="acc">
+          <summary>從企業現場出發</summary>
+          <p>先了解產業、規模與營運實況，再談工具與標準。同一套做法不一定適用每一家企業，壓力來源也不盡相同，可能來自客戶要求、能源成本、供應鏈管理或法規。</p>
+        </details>
+        <details class="acc">
+          <summary>說明條件與限制</summary>
+          <p>政策與市場仍在變動時，我們會清楚說明適用範圍、時間與不確定性。不保證無法驗證的成果，也不把單一案例當成普遍結論。</p>
+        </details>
+        <details class="acc">
+          <summary>減排優先於碳權</summary>
+          <p>談碳權之前，先看企業本身的能源效率、製程改善與資源循環。碳權是特定情境下的市場工具，不是所有排放問題的直接解答。</p>
+        </details>
+        <details class="acc">
+          <summary>責任分工清楚</summary>
+          <p>數據確認、法規適用與對外聲明，最終需由企業與專業人員確認。我們協助整理、分析與提出建議，讓決策有依據，但不取代企業自己的判斷。</p>
+        </details>
+      </div>
+    </div>
   </section>
 
-  <!-- ===== 表單 ===== -->
-  <form id="form" class="card" novalidate>
-    <h2>一、基本資料</h2>
-    <div class="grid">
-      <div>
-        <label class="f" for="name">姓名<span class="req">*</span></label>
-        <input type="text" id="name" required autocomplete="name" placeholder="王小明">
-      </div>
-      <div>
-        <label class="f" for="company">公司名稱<span class="req">*</span></label>
-        <input type="text" id="company" required autocomplete="organization" placeholder="範例股份有限公司">
-      </div>
-      <div>
-        <label class="f" for="phone">聯繫電話<span class="req">*</span></label>
-        <input type="tel" id="phone" required autocomplete="tel" placeholder="0912-345-678">
-      </div>
-      <div>
-        <label class="f" for="industry">行業類別<span class="req">*</span></label>
-        <select id="industry" required>
-          <option value="">請選擇</option>
-          <option>製造業</option>
-          <option>批發零售業</option>
-          <option>資訊科技業</option>
-          <option>金融保險業</option>
-          <option>營建工程業</option>
-          <option>餐飲服務業</option>
-          <option>醫療生技業</option>
-          <option>教育服務業</option>
-          <option>物流運輸業</option>
-          <option value="__other">其他（自行填寫）</option>
-        </select>
-      </div>
-      <div id="industryOtherWrap" class="hidden">
-        <label class="f" for="industryOther">請填寫行業類別<span class="req">*</span></label>
-        <input type="text" id="industryOther" placeholder="例如：文創設計">
+  <!-- ===== 預約諮詢（資料送到 Apps Script → Notion「客戶資料」） ===== -->
+  <section class="booking" id="booking">
+    <div class="wrap">
+      <h2>預約企業諮詢</h2>
+      <p class="lead">留下聯絡資料與方便的時段，顧問會依您勾選的時間聯繫您，先聊聊企業現況，再決定從哪裡開始。</p>
+
+      <details class="guide" open>
+        <summary>使用說明</summary>
+        <ol class="steps">
+          <li><b>填寫基本資料</b><span>姓名、公司名稱、聯繫電話、行業類別為必填；Email 選填。</span></li>
+          <li><b>選擇想諮詢的服務</b><span>不確定也沒關係，選「尚未確定」，或先到上方「找到起點」看看建議。</span></li>
+          <li><b>勾選可諮詢的時段</b><span>點格子選取，再點一次取消；點「日期」整欄選取、點「時段」整列選取。至少選 1 個，選越多越好安排。</span></li>
+          <li><b>送出</b><span>按「送出預約」，看到成功畫面即代表已收到。顧問會在 2 個工作天內與您確認最終時間。</span></li>
+        </ol>
+        <p class="tip">ⓘ 時段表顯示未來兩週的工作日（週一至週五）。若都不方便，請在「想諮詢的內容」寫下您可以的時間。請勿填寫機密或個人敏感資料。</p>
+      </details>
+
+      <form id="bkForm" class="bk-form" novalidate>
+        <h3>一、基本資料</h3>
+        <div class="row2">
+          <div class="field">
+            <label for="bkName">姓名<span class="req">*</span></label>
+            <input id="bkName" type="text" maxlength="50" autocomplete="name" placeholder="王小明">
+          </div>
+          <div class="field">
+            <label for="bkCompany">公司名稱<span class="req">*</span></label>
+            <input id="bkCompany" type="text" maxlength="100" autocomplete="organization" placeholder="範例股份有限公司">
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="bkPhone">聯繫電話<span class="req">*</span></label>
+            <input id="bkPhone" type="tel" maxlength="20" autocomplete="tel" placeholder="0912-345-678">
+          </div>
+          <div class="field">
+            <label for="bkEmail">Email</label>
+            <input id="bkEmail" type="email" maxlength="100" autocomplete="email" placeholder="name@company.com">
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="bkIndustry">行業類別<span class="req">*</span></label>
+            <select id="bkIndustry">
+              <option value="">請選擇</option>
+              <option>製造業</option>
+              <option>批發零售業</option>
+              <option>資訊科技業</option>
+              <option>金融保險業</option>
+              <option>營建工程業</option>
+              <option>餐飲服務業</option>
+              <option>醫療生技業</option>
+              <option>物流運輸業</option>
+              <option>能源相關產業</option>
+              <option value="__other">其他（自行填寫）</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="bkService">想諮詢的服務<span class="req">*</span></label>
+            <select id="bkService">
+              <option value="尚未確定">尚未確定</option>
+              <option value="企業健檢">企業健檢</option>
+              <option value="企業永續規劃">企業永續規劃</option>
+              <option value="ESG 認證協助">ESG 認證協助</option>
+              <option value="碳權交易">碳權交易</option>
+            </select>
+          </div>
+        </div>
+        <div class="field" id="bkIndustryOtherWrap" hidden>
+          <label for="bkIndustryOther">請填寫行業類別<span class="req">*</span></label>
+          <input id="bkIndustryOther" type="text" maxlength="50" placeholder="例如：文創設計">
+        </div>
+
+        <h3>二、可諮詢時段<span class="req">*</span></h3>
+        <div class="toolbar">
+          <button type="button" class="mini" id="selAm">全選上午</button>
+          <button type="button" class="mini" id="selPm">全選下午</button>
+          <button type="button" class="mini" id="clearAll">清除</button>
+          <span class="count">已選 <b id="count">0</b> 個時段</span>
+        </div>
+        <div class="table-scroll">
+          <table class="slots" id="slotTable" aria-label="可諮詢時段表"></table>
+        </div>
+        <p class="hint" style="margin-top:8px">點格子選取／取消；點表頭日期整欄選取，點左側時段整列選取。</p>
+
+        <h3>三、想諮詢的內容（選填）</h3>
+        <div class="field">
+          <label for="bkMessage" class="hint" style="font-weight:400">簡單描述企業現況或想了解的事</label>
+          <textarea id="bkMessage" maxlength="1000" placeholder="例如：我們是小型製造業，客戶開始要求碳排資料，不確定該從健檢還是規劃開始。"></textarea>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn solid" id="bkSubmit">送出預約</button>
+          <button type="reset" class="btn line" id="bkReset">重新填寫</button>
+        </div>
+        <p class="status" id="bkStatus" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="done" id="bkDone" hidden>
+        <div class="icon">✅</div>
+        <h3>預約已送出，謝謝您！</h3>
+        <p id="bkDoneText">我們已收到您的資料，顧問會在 2 個工作天內與您聯繫確認諮詢時間。</p>
+        <button type="button" class="btn line" id="bkAgain">再填一份</button>
       </div>
     </div>
-
-
-    <h2 style="margin-top:28px">二、可諮詢時段<span class="req">*</span></h2>
-    <div class="toolbar">
-      <button type="button" id="selAm">全選上午</button>
-      <button type="button" id="selPm">全選下午</button>
-      <button type="button" id="clearAll">清除全部</button>
-      <span class="count">已選 <b id="count">0</b> 個時段</span>
-    </div>
-    <div class="table-scroll">
-      <table id="slotTable" aria-label="可諮詢時段表"></table>
-    </div>
-    <p class="hint">點格子選取／取消；點表頭日期整欄選取，點左側時段整列選取。</p>
-
-
-    <div id="msg" class="msg" role="alert"></div>
-    <div class="actions">
-      <button type="reset" id="resetBtn">重新填寫</button>
-      <button type="submit" class="btn-primary" id="submitBtn">送出調查</button>
-    </div>
-  </form>
-
-  <!-- ===== 送出成功 ===== -->
-  <section id="done" class="card done hidden">
-    <div class="icon">✅</div>
-    <h2>感謝您的填寫！</h2>
-    <p id="doneText">我們已收到您的資料，顧問會在 2 個工作天內與您聯繫確認諮詢時間。</p>
-    <button type="button" id="againBtn">再填一份</button>
   </section>
-</div>
+
+  <section class="close" id="contact">
+    <div class="wrap">
+      <blockquote>把海洋還給海洋，<br>把森林還給森林，<br>把大自然還給大家。</blockquote>
+      <p style="margin:0 0 20px;color:var(--on-deep-muted)">想知道貴公司可以從哪裡開始，歡迎先聊聊現況。</p>
+      <a class="btn primary" href="#booking">預約企業諮詢</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 亦麟國際顧問責任有限公司</div>
+</footer>
 
 <script>
-  /* ===== Apps Script 網頁應用程式網址（重新部署若網址改變，請更新這裡） ===== */
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2fGplcJNQlQb2NstHB3E4eaXkjmxdelmsZmgnD3YF1JerfUKt8xsnt59KxBb2S3cKfQ/exec';
-
-  /* ===== 時段設定（可依需求調整） ===== */
-  const DAYS_AHEAD = 14;           // 顯示未來幾天（只列工作日）
-  const TIME_SLOTS = [
-    { label: '09:00–10:30', period: 'am' },
-    { label: '10:30–12:00', period: 'am' },
-    { label: '13:30–15:00', period: 'pm' },
-    { label: '15:00–16:30', period: 'pm' },
-    { label: '16:30–18:00', period: 'pm' },
+/* ================= 企業介紹：服務分頁＋找到起點 ================= */
+(function () {
+  var services = [
+    {
+      id: "health", name: "企業健檢", tag: "先看清現況",
+      what: "盤點企業的營運、資源與能源使用、管理制度，以及客戶與利害關係人的期待，找出優先需要處理的風險與缺口。",
+      when: "剛開始談永續、不確定重點在哪；管理層或客戶開始詢問，但內部還沒有共識。",
+      steps: ["訪談與資料盤點", "整理現況與缺口", "排出優先順序與建議的下一步"],
+      note: "健檢是起點，目的是看清現況，不等於已經完成改善。"
+    },
+    {
+      id: "plan", name: "企業永續規劃", tag: "排出可執行的路徑",
+      what: "依產業、規模與資源條件，建立可執行、可追蹤的永續路徑，包含目標、分工與資料管理方式。",
+      when: "已經知道要做，但不確定先做什麼、誰負責、怎麼追蹤。",
+      steps: ["確認範疇與目標", "擬定行動與時程", "建立追蹤與定期檢視機制"],
+      note: "目標會依企業的實際條件訂定，不套用通用模板。"
+    },
+    {
+      id: "esg", name: "ESG 認證協助", tag: "回應客戶與供應鏈",
+      what: "協助釐清適用的標準與流程，整理環境、社會與治理面向的制度與資料，回應客戶、供應鏈與投資人的需求。",
+      when: "客戶要求提供永續資料，或企業準備申請特定標準、驗證。",
+      steps: ["確認適用標準與要求", "補齊制度與資料", "準備審查與後續維持"],
+      note: "最終是否通過，取決於標準方或第三方機構的審查，顧問無法保證結果。"
+    },
+    {
+      id: "carbon", name: "碳權交易", tag: "減排之後的市場工具",
+      what: "在企業已盤點排放、並持續進行減排之後，協助評估碳權的適用情境、品質與交易方式。",
+      when: "已有減排行動，且因法規、客戶或內部目標，需要評估市場工具。",
+      steps: ["確認排放與減排現況", "評估碳權的適用性與限制", "協助交易流程與後續揭露"],
+      note: "碳權是特定情境下的市場工具，不能取代企業本身的減排，也不等於碳中和。"
+    }
   ];
-  const WEEK = ['日', '一', '二', '三', '四', '五', '六'];
 
-  const $ = id => document.getElementById(id);
-  const selected = new Set();
+  var situations = [
+    { id: "health", text: "我們還不確定公司現況，不知道風險與缺口在哪裡。", why: "在沒有看清現況之前就投入，容易走錯方向。先做一次健檢，能讓後面的決定有依據。", first: "從訪談與資料盤點開始，整理出優先要處理的事項。" },
+    { id: "plan", text: "我們知道要做永續，但沒有方向、分工，也沒有時程。", why: "這時需要的是一份符合企業條件、可以執行和追蹤的規劃。", first: "先確認範疇與目標，再把行動拆成可以分階段完成的項目。" },
+    { id: "esg", text: "客戶或供應鏈開始要求我們提供 ESG 資料或認證。", why: "要回應對方，需要先弄清楚適用的標準，並把制度與資料整理到可以說明的程度。", first: "先確認客戶要求與適用標準，再盤點目前缺哪些制度與資料。" },
+    { id: "carbon", text: "我們已經有減排行動，想了解碳權是否適合。", why: "碳權適合放在實質減排之後評估，而且要看用途、品質與限制。", first: "先確認排放與減排現況，再判斷碳權在這個情境下的角色。" }
+  ];
 
-  function pad(n) { return String(n).padStart(2, '0'); }
+  // 讓其他區塊可以帶入「想諮詢的服務」
+  window.presetService = function (name) {
+    var sel = document.getElementById("bkService");
+    if (sel) sel.value = name;
+  };
+
+  var tabsEl = document.getElementById("tabs");
+  var panelEl = document.getElementById("panel");
+  var current = 0;
+
+  function renderTabs() {
+    tabsEl.innerHTML = "";
+    services.forEach(function (s, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "tab";
+      b.setAttribute("role", "tab");
+      b.id = "tab-" + s.id;
+      b.setAttribute("aria-selected", i === current ? "true" : "false");
+      b.setAttribute("aria-controls", "panel");
+      b.tabIndex = i === current ? 0 : -1;
+      var st = document.createElement("strong"); st.textContent = s.name;
+      var sp = document.createElement("span"); sp.textContent = s.tag;
+      b.appendChild(st); b.appendChild(sp);
+      b.addEventListener("click", function () { select(i, false); });
+      b.addEventListener("keydown", function (e) {
+        var n = services.length, t = null;
+        if (e.key === "ArrowDown" || e.key === "ArrowRight") t = (i + 1) % n;
+        else if (e.key === "ArrowUp" || e.key === "ArrowLeft") t = (i - 1 + n) % n;
+        else if (e.key === "Home") t = 0;
+        else if (e.key === "End") t = n - 1;
+        if (t !== null) { e.preventDefault(); select(t, true); }
+      });
+      tabsEl.appendChild(b);
+    });
+  }
+
+  function renderPanel() {
+    var s = services[current];
+    panelEl.setAttribute("aria-labelledby", "tab-" + s.id);
+    panelEl.innerHTML = "";
+    var wrap = document.createElement("div");
+    wrap.className = "panel-in";
+    function add(tag, text, cls) {
+      var el = document.createElement(tag);
+      el.textContent = text;
+      if (cls) el.className = cls;
+      wrap.appendChild(el);
+      return el;
+    }
+    add("h3", s.name);
+    add("p", s.what);
+    add("h4", "適合在這些時候");
+    add("p", s.when);
+    add("h4", "我們會這樣做");
+    var ol = document.createElement("ol");
+    s.steps.forEach(function (t) { var li = document.createElement("li"); li.textContent = t; ol.appendChild(li); });
+    wrap.appendChild(ol);
+    add("div", s.note, "note");
+    var link = document.createElement("a");
+    link.className = "btn line";
+    link.style.marginTop = "24px";
+    link.href = "#booking";
+    link.textContent = "預約這項服務的諮詢";
+    link.addEventListener("click", function () { window.presetService(s.name); });
+    wrap.appendChild(link);
+    panelEl.appendChild(wrap);
+  }
+
+  function select(i, focus) {
+    current = i;
+    renderTabs();
+    renderPanel();
+    if (focus) document.getElementById("tab-" + services[i].id).focus();
+  }
+
+  var fs = document.getElementById("situations");
+  var resEl = document.getElementById("result");
+  situations.forEach(function (s) {
+    var label = document.createElement("label");
+    label.className = "opt";
+    var input = document.createElement("input");
+    input.type = "radio";
+    input.name = "situation";
+    input.value = s.id;
+    var span = document.createElement("span");
+    span.textContent = s.text;
+    label.appendChild(input);
+    label.appendChild(span);
+    input.addEventListener("change", function () { showResult(s); });
+    fs.appendChild(label);
+  });
+
+  function showEmpty() {
+    resEl.innerHTML = "";
+    var p = document.createElement("p");
+    p.className = "empty";
+    p.textContent = "選一個左邊的情況，這裡會顯示建議的起點。";
+    resEl.appendChild(p);
+  }
+
+  function showResult(s) {
+    var idx = services.findIndex(function (x) { return x.id === s.id; });
+    var svc = services[idx];
+    resEl.innerHTML = "";
+    var wrap = document.createElement("div");
+    wrap.className = "panel-in";
+    var tag = document.createElement("p"); tag.className = "tag"; tag.textContent = "建議從這裡開始";
+    var h = document.createElement("h3"); h.textContent = svc.name;
+    var p1 = document.createElement("p"); p1.textContent = s.why;
+    var p2 = document.createElement("p"); p2.textContent = s.first;
+    var acts = document.createElement("div"); acts.className = "acts";
+    var b1 = document.createElement("a");
+    b1.className = "btn"; b1.href = "#services"; b1.textContent = "查看這項服務";
+    b1.addEventListener("click", function () { select(idx, false); });
+    var b2 = document.createElement("a");
+    b2.className = "btn"; b2.href = "#booking"; b2.textContent = "預約諮詢";
+    b2.addEventListener("click", function () { window.presetService(svc.name); });
+    acts.appendChild(b1); acts.appendChild(b2);
+    [tag, h, p1, p2, acts].forEach(function (el) { wrap.appendChild(el); });
+    resEl.appendChild(wrap);
+  }
+
+  renderTabs();
+  renderPanel();
+  showEmpty();
+})();
+</script>
+
+<script>
+/* ================= 預約諮詢：時段表＋送出到 Apps Script ================= */
+(function () {
+  /* ---- Apps Script 網頁應用程式網址（換了部署網址請改這裡） ---- */
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycby2fGplcJNQlQb2NstHB3E4eaXkjmxdelmsZmgnD3YF1JerfUKt8xsnt59KxBb2S3cKfQ/exec";
+
+  /* ---- 時段設定（可依需求調整） ---- */
+  var DAYS_AHEAD = 14; // 顯示未來幾天（只列工作日）
+  var TIME_SLOTS = [
+    { label: "09:00–10:30", period: "am" },
+    { label: "10:30–12:00", period: "am" },
+    { label: "13:30–15:00", period: "pm" },
+    { label: "15:00–16:30", period: "pm" },
+    { label: "16:30–18:00", period: "pm" }
+  ];
+  var WEEK = ["日", "一", "二", "三", "四", "五", "六"];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var selected = new Set();
+
+  function pad(n) { return String(n).padStart(2, "0"); }
 
   function buildDates() {
-    const out = [];
-    const d = new Date();
+    var out = [];
+    var d = new Date();
     d.setHours(0, 0, 0, 0);
-    for (let i = 1; i <= DAYS_AHEAD; i++) {
-      const x = new Date(d);
+    for (var i = 1; i <= DAYS_AHEAD; i++) {
+      var x = new Date(d);
       x.setDate(d.getDate() + i);
-      const w = x.getDay();
+      var w = x.getDay();
       if (w === 0 || w === 6) continue;
       out.push({
-        key: x.getFullYear() + '-' + pad(x.getMonth() + 1) + '-' + pad(x.getDate()),
-        md: (x.getMonth() + 1) + '/' + x.getDate(),
-        week: '週' + WEEK[w],
+        key: x.getFullYear() + "-" + pad(x.getMonth() + 1) + "-" + pad(x.getDate()) + "（" + WEEK[w] + "）",
+        md: (x.getMonth() + 1) + "/" + x.getDate(),
+        week: "週" + WEEK[w]
       });
     }
     return out;
   }
-
-  const DATES = buildDates();
-
-  function slotId(dateKey, slotLabel) { return dateKey + ' ' + slotLabel; }
+  var DATES = buildDates();
+  function slotId(dateKey, label) { return dateKey + " " + label; }
 
   function buildTable() {
-    const table = $('slotTable');
-    const thead = document.createElement('thead');
-    const hr = document.createElement('tr');
-    const corner = document.createElement('th');
-    corner.textContent = '時段 \\ 日期';
+    var table = $("slotTable");
+    var thead = document.createElement("thead");
+    var hr = document.createElement("tr");
+    var corner = document.createElement("th");
+    corner.textContent = "時段／日期";
     hr.appendChild(corner);
-    DATES.forEach(d => {
-      const th = document.createElement('th');
+    DATES.forEach(function (d) {
+      var th = document.createElement("th");
       th.textContent = d.md;
-      const sm = document.createElement('small');
+      var sm = document.createElement("small");
       sm.textContent = d.week;
       th.appendChild(sm);
-      th.title = '整欄選取／取消';
-      th.addEventListener('click', () => toggleGroup(TIME_SLOTS.map(s => slotId(d.key, s.label))));
+      th.title = "整欄選取／取消";
+      th.addEventListener("click", function () {
+        toggleGroup(TIME_SLOTS.map(function (s) { return slotId(d.key, s.label); }));
+      });
       hr.appendChild(th);
     });
     thead.appendChild(hr);
 
-    const tbody = document.createElement('tbody');
-    TIME_SLOTS.forEach(s => {
-      const tr = document.createElement('tr');
-      const th = document.createElement('th');
+    var tbody = document.createElement("tbody");
+    TIME_SLOTS.forEach(function (s) {
+      var tr = document.createElement("tr");
+      var th = document.createElement("th");
       th.textContent = s.label;
-      th.title = '整列選取／取消';
-      th.addEventListener('click', () => toggleGroup(DATES.map(d => slotId(d.key, s.label))));
+      th.title = "整列選取／取消";
+      th.addEventListener("click", function () {
+        toggleGroup(DATES.map(function (d) { return slotId(d.key, s.label); }));
+      });
       tr.appendChild(th);
-      DATES.forEach(d => {
-        const td = document.createElement('td');
-        td.className = 'slot';
+      DATES.forEach(function (d) {
+        var td = document.createElement("td");
+        td.className = "slot";
         td.dataset.id = slotId(d.key, s.label);
-        td.setAttribute('role', 'checkbox');
-        td.setAttribute('aria-checked', 'false');
-        td.setAttribute('aria-label', d.md + ' ' + d.week + ' ' + s.label);
+        td.setAttribute("role", "checkbox");
+        td.setAttribute("aria-checked", "false");
+        td.setAttribute("aria-label", d.md + " " + d.week + " " + s.label);
         td.tabIndex = 0;
-        td.addEventListener('click', () => toggle(td.dataset.id));
-        td.addEventListener('keydown', e => {
-          if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(td.dataset.id); }
+        td.addEventListener("click", function () { toggle(td.dataset.id); });
+        td.addEventListener("keydown", function (e) {
+          if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggle(td.dataset.id); }
         });
         tr.appendChild(td);
       });
       tbody.appendChild(tr);
     });
-    table.replaceChildren(thead, tbody);
+    table.innerHTML = "";
+    table.appendChild(thead);
+    table.appendChild(tbody);
   }
 
   function render() {
-    document.querySelectorAll('td.slot').forEach(td => {
-      const on = selected.has(td.dataset.id);
-      td.classList.toggle('on', on);
-      td.setAttribute('aria-checked', on ? 'true' : 'false');
+    document.querySelectorAll("td.slot").forEach(function (td) {
+      var on = selected.has(td.dataset.id);
+      td.classList.toggle("on", on);
+      td.setAttribute("aria-checked", on ? "true" : "false");
     });
-    $('count').textContent = selected.size;
+    $("count").textContent = selected.size;
   }
-
-  function toggle(id) {
-    selected.has(id) ? selected.delete(id) : selected.add(id);
-    render();
-  }
-
-  // 群組內若全已選 → 全取消；否則 → 全選
+  function toggle(id) { selected.has(id) ? selected.delete(id) : selected.add(id); render(); }
   function toggleGroup(ids) {
-    const allOn = ids.every(id => selected.has(id));
-    ids.forEach(id => allOn ? selected.delete(id) : selected.add(id));
+    var allOn = ids.every(function (id) { return selected.has(id); });
+    ids.forEach(function (id) { allOn ? selected.delete(id) : selected.add(id); });
     render();
   }
-
-  function selectPeriod(period) {
-    const ids = [];
-    DATES.forEach(d => TIME_SLOTS.filter(s => s.period === period).forEach(s => ids.push(slotId(d.key, s.label))));
+  function selectPeriod(p) {
+    var ids = [];
+    DATES.forEach(function (d) {
+      TIME_SLOTS.filter(function (s) { return s.period === p; })
+        .forEach(function (s) { ids.push(slotId(d.key, s.label)); });
+    });
     toggleGroup(ids);
   }
 
-  /* ===== 表單行為 ===== */
-  $('industry').addEventListener('change', e => {
-    $('industryOtherWrap').classList.toggle('hidden', e.target.value !== '__other');
-  });
-  $('selAm').addEventListener('click', () => selectPeriod('am'));
-  $('selPm').addEventListener('click', () => selectPeriod('pm'));
-  $('clearAll').addEventListener('click', () => { selected.clear(); render(); });
-  $('resetBtn').addEventListener('click', () => {
-    selected.clear(); render(); hideMsg();
-    $('industryOtherWrap').classList.add('hidden');
-  });
-  $('againBtn').addEventListener('click', () => {
-    $('form').reset(); selected.clear(); render(); hideMsg();
-    $('industryOtherWrap').classList.add('hidden');
-    $('done').classList.add('hidden'); $('form').classList.remove('hidden');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  function showMsg(text, type) {
-    const m = $('msg');
-    m.textContent = text;
-    m.className = 'msg ' + type;
+  function setStatus(msg, isErr) {
+    $("bkStatus").textContent = msg;
+    $("bkStatus").className = "status" + (isErr ? " err" : "");
   }
-  function hideMsg() { $('msg').className = 'msg'; }
+
+  function resetAll() {
+    $("bkForm").reset();
+    selected.clear();
+    render();
+    setStatus("", false);
+    $("bkIndustryOtherWrap").hidden = true;
+  }
+
+  $("bkIndustry").addEventListener("change", function (e) {
+    $("bkIndustryOtherWrap").hidden = e.target.value !== "__other";
+  });
+  $("selAm").addEventListener("click", function () { selectPeriod("am"); });
+  $("selPm").addEventListener("click", function () { selectPeriod("pm"); });
+  $("clearAll").addEventListener("click", function () { selected.clear(); render(); });
+  $("bkReset").addEventListener("click", function (e) { e.preventDefault(); resetAll(); });
+  $("bkAgain").addEventListener("click", function () {
+    resetAll();
+    $("bkDone").hidden = true;
+    $("bkForm").hidden = false;
+    $("booking").scrollIntoView({ behavior: "smooth" });
+  });
 
   function collect() {
-    const v = id => $(id).value.trim();
-    const industry = v('industry') === '__other' ? v('industryOther') : v('industry');
-    const slots = [...selected].sort();
+    var v = function (id) { return $(id).value.trim(); };
+    var industry = v("bkIndustry") === "__other" ? v("bkIndustryOther") : v("bkIndustry");
+    var slots = Array.from(selected).sort();
     return {
-      name: v('name'),
-      company: v('company'),
-      phone: v('phone'),
+      name: v("bkName"),
+      company: v("bkCompany"),
+      phone: v("bkPhone"),
+      email: v("bkEmail"),
       industry: industry,
-      slots: slots,
+      service: v("bkService"),
+      message: v("bkMessage"),
+      slots: slots.join("\n"),
+      slotCount: slots.length
     };
   }
 
   function validate(d) {
-    if (!d.name) return ['請填寫姓名', 'name'];
-    if (!d.company) return ['請填寫公司名稱', 'company'];
-    if (!d.phone) return ['請填寫聯繫電話', 'phone'];
-    if (!/^[\d\s\-+()#]{8,20}$/.test(d.phone)) return ['聯繫電話格式不正確', 'phone'];
-    if (!d.industry) return ['請選擇或填寫行業類別', $('industry').value === '__other' ? 'industryOther' : 'industry'];
-    if (!d.slots.length) return ['請至少勾選一個可諮詢時段', null];
+    if (!d.name) return ["請填寫姓名", "bkName"];
+    if (!d.company) return ["請填寫公司名稱", "bkCompany"];
+    if (!d.phone) return ["請填寫聯繫電話", "bkPhone"];
+    if (!/^[\d\s\-+()#]{8,20}$/.test(d.phone)) return ["聯繫電話格式不正確", "bkPhone"];
+    if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return ["Email 格式不正確", "bkEmail"];
+    if (!d.industry) return ["請選擇或填寫行業類別", $("bkIndustry").value === "__other" ? "bkIndustryOther" : "bkIndustry"];
+    if (!d.slotCount) return ["請至少勾選一個可諮詢時段", null];
     return null;
   }
 
-  $('form').addEventListener('submit', e => {
+  $("bkForm").addEventListener("submit", function (e) {
     e.preventDefault();
-    const data = collect();
-    const err = validate(data);
+    var data = collect();
+    var err = validate(data);
     if (err) {
-      showMsg(err[0], 'err');
+      setStatus(err[0], true);
       if (err[1]) $(err[1]).focus();
       return;
     }
-    hideMsg();
-    const btn = $('submitBtn');
+    var btn = $("bkSubmit");
     btn.disabled = true;
-    btn.textContent = '送出中…';
+    btn.textContent = "送出中…";
+    setStatus("資料傳送中，請稍候…", false);
 
-    const onOk = res => {
-      btn.disabled = false; btn.textContent = '送出調查';
-      $('doneText').textContent =
-        data.name + ' 您好，我們已收到您勾選的 ' + data.slots.length +
-        ' 個時段，顧問會在 2 個工作天內與您聯繫確認諮詢時間。';
-      $('form').classList.add('hidden');
-      $('done').classList.remove('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-    const onErr = error => {
-      btn.disabled = false; btn.textContent = '送出調查';
-      showMsg('送出失敗：' + (error && error.message ? error.message : error) + '。請稍後再試。', 'err');
-    };
+    function done() {
+      btn.disabled = false; btn.textContent = "送出預約";
+      $("bkDoneText").textContent = data.name + " 您好，我們已收到您勾選的 " + data.slotCount +
+        " 個時段，顧問會在 2 個工作天內與您聯繫確認諮詢時間。";
+      $("bkForm").hidden = true;
+      $("bkDone").hidden = false;
+      $("booking").scrollIntoView({ behavior: "smooth" });
+    }
+    function fail(error) {
+      btn.disabled = false; btn.textContent = "送出預約";
+      setStatus("送出失敗：" + (error && error.message ? error.message : error), true);
+    }
 
-    const payload = {
-      name: data.name,
-      company: data.company,
-      phone: data.phone,
-      industry: data.industry,
-      slots: data.slots.join('\n'),
+    var payload = {
+      name: data.name, company: data.company, phone: data.phone, email: data.email,
+      industry: data.industry, service: data.service, message: data.message, slots: data.slots
     };
 
-    if (typeof google !== 'undefined' && google.script && google.script.run) {
-      // 由 Apps Script 網址開啟時：直接呼叫 code.gs
+    if (typeof google !== "undefined" && google.script && google.script.run) {
+      // 由 Apps Script 網址開啟：直接呼叫 code.gs
       google.script.run
-        .withSuccessHandler(onOk)
-        .withFailureHandler(onErr)
-        .addCustomer(payload.name, payload.company, payload.phone, payload.industry, payload.slots);
-    } else {
-      // 放在其他網站或本機開啟時：POST 到 Apps Script 網址（由 code.gs 的 doPost 接收）
-      // 不設定 Content-Type（預設 text/plain），避免瀏覽器 CORS 預檢被擋
-      fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload), redirect: 'follow' })
-        .then(r => r.text())
-        .then(t => {
-          let res;
-          try { res = JSON.parse(t); }
-          catch (_) { throw new Error('伺服器回應不是 JSON，請確認部署權限為「所有人」並已部署新版本'); }
-          if (!res.ok) throw new Error(res.error || '未知錯誤');
-          onOk(res);
+        .withSuccessHandler(function (res) {
+          if (res && res.ok === false) fail(new Error(res.error)); else done();
         })
-        .catch(onErr);
+        .withFailureHandler(fail)
+        .submitConsultation(payload);
+    } else {
+      // 放在其他網站或本機開啟：POST 到 Apps Script（由 doPost 接收）
+      // 不設定 Content-Type（預設 text/plain），避免 CORS 預檢被擋
+      fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload), redirect: "follow" })
+        .then(function (r) { return r.text(); })
+        .then(function (t) {
+          var res;
+          try { res = JSON.parse(t); }
+          catch (_) { throw new Error("伺服器回應格式不對，請確認 Apps Script 已部署「新版本」且存取權為「所有人」"); }
+          if (!res.ok) throw new Error(res.error || "未知錯誤");
+          done();
+        })
+        .catch(fail);
     }
   });
 
   buildTable();
   render();
+})();
 </script>
 </body>
 </html>
