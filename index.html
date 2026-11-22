@@ -1,493 +1,449 @@
-<!doctype html>
-<html lang="zh-Hant-TW">
+<!DOCTYPE html>
+<html lang="zh-Hant">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>亦麟國際顧問｜企業健檢・企業永續・世代傳承</title>
-<meta name="description" content="亦麟國際顧問責任有限公司，陪伴企業從企業健檢、企業永續與低碳轉型，到世代傳承與家族企業治理。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#1d2a26;
-    --ink-soft:#4a5a54;
-    --paper:#f7f5ef;
-    --paper-2:#eee9dd;
-    --forest:#2f5d4e;
-    --forest-deep:#1f3f35;
-    --sea:#3b7186;
-    --line:#d9d2c2;
-    --white:#ffffff;
-    --max:1120px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
-    color:var(--ink);background:var(--paper);line-height:1.85;font-size:17px;
-    -webkit-font-smoothing:antialiased;
-  }
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
-  h1,h2,h3{font-family:"Noto Serif TC",serif;font-weight:700;line-height:1.35;letter-spacing:.02em}
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>企業諮詢時段調查</title>
+  <style>
+    :root {
+      --bg: #f5f6f8;
+      --card: #ffffff;
+      --text: #1f2933;
+      --muted: #616e7c;
+      --line: #e1e5ea;
+      --primary: #1d5bd8;
+      --primary-soft: #e8effc;
+      --ok: #1f8a4c;
+      --err: #c62828;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 32px 16px 64px; }
+    header h1 { margin: 0 0 4px; font-size: 1.75rem; }
+    header p { margin: 0; color: var(--muted); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-top: 20px;
+    }
+    .card h2 { margin: 0 0 16px; font-size: 1.15rem; }
 
-  /* header */
-  header{position:sticky;top:0;z-index:20;background:rgba(247,245,239,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
-  .brand{display:flex;flex-direction:column;line-height:1.2}
-  .brand b{font-family:"Noto Serif TC",serif;font-size:20px;letter-spacing:.08em}
-  .brand small{font-size:11px;color:var(--ink-soft);letter-spacing:.12em}
-  .nav ul{display:flex;gap:28px;list-style:none;font-size:15px}
-  .nav ul a{color:var(--ink-soft);transition:color .2s}
-  .nav ul a:hover{color:var(--forest)}
-  .menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:6px;padding:6px 12px;font:inherit;font-size:14px;color:var(--ink);cursor:pointer}
+    /* 使用說明 */
+    details.guide summary {
+      cursor: pointer; font-weight: 600; font-size: 1.15rem; list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    details.guide summary::-webkit-details-marker { display: none; }
+    details.guide summary::after { content: "收合 ▲"; font-size: .85rem; color: var(--primary); font-weight: 500; }
+    details.guide:not([open]) summary::after { content: "展開 ▼"; }
+    .steps { counter-reset: s; list-style: none; padding: 0; margin: 16px 0 0; }
+    .steps li {
+      counter-increment: s; position: relative; padding: 0 0 14px 44px;
+    }
+    .steps li::before {
+      content: counter(s); position: absolute; left: 0; top: 0;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--primary-soft); color: var(--primary);
+      display: grid; place-items: center; font-weight: 700;
+    }
+    .steps b { display: block; }
+    .steps span { color: var(--muted); font-size: .95rem; }
+    .note { background: #fff8e1; border-radius: 8px; padding: 10px 14px; font-size: .9rem; color: #6b5300; margin-top: 4px; }
 
-  /* hero */
-  .hero{padding:110px 0 96px;position:relative;overflow:hidden}
-  .hero::after{
-    content:"";position:absolute;right:-180px;top:-120px;width:560px;height:560px;border-radius:50%;
-    background:radial-gradient(circle at 35% 35%,rgba(59,113,134,.18),rgba(47,93,78,.10) 55%,transparent 70%);
-    pointer-events:none;
-  }
-  .eyebrow{font-size:14px;letter-spacing:.24em;color:var(--forest);margin-bottom:20px}
-  .hero h1{font-size:clamp(32px,5.2vw,56px);max-width:16em}
-  .hero p.lead{margin-top:28px;max-width:34em;color:var(--ink-soft);font-size:18px}
-  .path{margin-top:48px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:16px}
-  .path span{background:var(--white);border:1px solid var(--line);border-radius:999px;padding:8px 20px}
-  .path i{font-style:normal;color:var(--forest)}
-  .btn{display:inline-block;margin-top:44px;background:var(--forest);color:var(--white);padding:14px 30px;border-radius:6px;font-size:16px;transition:background .2s}
-  .btn:hover{background:var(--forest-deep)}
+    /* 表單 */
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .full { grid-column: 1 / -1; }
+    label.f { display: block; font-weight: 600; font-size: .95rem; margin-bottom: 6px; }
+    .req { color: var(--err); margin-left: 2px; }
+    input[type=text], input[type=tel], input[type=email], select, textarea {
+      width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px;
+      font: inherit; background: #fff; color: var(--text);
+    }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--primary); outline-offset: -1px; border-color: transparent; }
+    textarea { min-height: 90px; resize: vertical; }
+    .hint { font-size: .85rem; color: var(--muted); margin-top: 4px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chips label {
+      border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer; user-select: none;
+    }
+    .chips input { display: none; }
+    .chips input:checked + span { color: var(--primary); font-weight: 600; }
+    .chips label:has(input:checked) { border-color: var(--primary); background: var(--primary-soft); }
 
-  section{padding:96px 0}
-  .sec-head{margin-bottom:48px;max-width:40em}
-  .sec-head .eyebrow{margin-bottom:12px}
-  .sec-head h2{font-size:clamp(26px,3.4vw,38px)}
-  .sec-head p{margin-top:16px;color:var(--ink-soft)}
+    /* 時段表 */
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+    .toolbar .count { margin-left: auto; color: var(--muted); font-size: .9rem; }
+    button {
+      font: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--line);
+      background: #fff; padding: 6px 12px; color: var(--text);
+    }
+    button:hover { border-color: var(--primary); }
+    .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+    table { border-collapse: collapse; width: 100%; min-width: 640px; }
+    th, td { border-bottom: 1px solid var(--line); text-align: center; padding: 0; }
+    thead th { background: #fafbfc; font-size: .85rem; padding: 8px 4px; cursor: pointer; }
+    thead th:first-child { cursor: default; }
+    thead th small { display: block; color: var(--muted); font-weight: 400; }
+    tbody th { font-size: .85rem; padding: 8px; white-space: nowrap; background: #fafbfc; cursor: pointer; text-align: left; }
+    td.slot { cursor: pointer; height: 44px; transition: background .1s; }
+    td.slot:hover { background: var(--primary-soft); }
+    td.slot.on { background: var(--primary); color: #fff; }
+    td.slot.on::after { content: "✓"; font-weight: 700; }
+    tr:last-child th, tr:last-child td { border-bottom: none; }
 
-  /* about */
-  .about{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
-  .about-text p+p{margin-top:18px}
-  .about blockquote{
-    font-family:"Noto Serif TC",serif;font-size:clamp(20px,2.4vw,26px);line-height:1.7;color:var(--forest-deep);
-    border-left:3px solid var(--forest);padding-left:24px;
-  }
+    .actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
+    .btn-primary { background: var(--primary); color: #fff; border-color: var(--primary); padding: 10px 28px; font-weight: 600; }
+    .btn-primary:disabled { opacity: .6; cursor: wait; }
+    .msg { margin-top: 16px; padding: 12px 14px; border-radius: 8px; display: none; }
+    .msg.ok { display: block; background: #e7f6ed; color: var(--ok); }
+    .msg.err { display: block; background: #fdecea; color: var(--err); }
 
-  /* services */
-  .services{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-  .card{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:36px 30px;display:flex;flex-direction:column}
-  .card .num{font-family:"Noto Serif TC",serif;font-size:14px;color:var(--sea);letter-spacing:.2em}
-  .card h3{font-size:26px;margin:10px 0 6px}
-  .card .sub{font-size:14px;color:var(--ink-soft);margin-bottom:18px}
-  .card p.q{font-size:16px;padding:14px 16px;background:var(--paper);border-radius:6px;margin-bottom:20px}
-  .card ul{list-style:none;font-size:15.5px}
-  .card li{padding:9px 0;border-top:1px dashed var(--line)}
-  .card li:first-child{border-top:none}
-  .card li b{font-weight:500}
-  .card .note{margin-top:auto;padding-top:20px;font-size:13.5px;color:var(--ink-soft)}
+    .done { text-align: center; padding: 48px 24px; }
+    .done .icon { font-size: 3rem; }
+    .hidden { display: none !important; }
 
-  /* method */
-  .method{background:var(--forest-deep);color:#e9efe9}
-  .method .eyebrow{color:#a9c9b9}
-  .method .sec-head p{color:#bfd0c6}
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s}
-  .step{padding:28px 24px;border-left:1px solid rgba(255,255,255,.18)}
-  .step:first-child{border-left:none}
-  .step b{display:block;font-family:"Noto Serif TC",serif;font-size:24px;color:#fff;margin-bottom:10px}
-  .step b::before{counter-increment:s;content:"0" counter(s);display:block;font-size:13px;letter-spacing:.2em;color:#a9c9b9;margin-bottom:6px}
-  .step p{font-size:15.5px;color:#cfdcd4}
-
-  /* principles */
-  .principles{display:grid;grid-template-columns:repeat(2,1fr);gap:20px 48px}
-  .pr{padding:22px 0;border-top:1px solid var(--line)}
-  .pr h3{font-size:19px;margin-bottom:6px}
-  .pr p{font-size:15.5px;color:var(--ink-soft)}
-
-  /* flow */
-  .flow{background:var(--paper-2)}
-  .flow ol{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:16px;counter-reset:f}
-  .flow li{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:22px 18px;font-size:15.5px}
-  .flow li::before{counter-increment:f;content:"STEP " counter(f);display:block;font-size:12px;letter-spacing:.18em;color:var(--sea);margin-bottom:8px}
-  .flow li b{display:block;font-size:17px;margin-bottom:4px}
-
-  /* contact */
-  .contact-box{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:48px;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center}
-  .contact-box h2{font-size:clamp(24px,3vw,32px)}
-  .contact-box p{margin-top:14px;color:var(--ink-soft)}
-  .contact-list{list-style:none;font-size:16px}
-  .contact-list li{padding:12px 0;border-top:1px solid var(--line);display:flex;gap:16px}
-  .contact-list li:first-child{border-top:none}
-  .contact-list span{color:var(--ink-soft);min-width:4.5em}
-
-  /* signup form */
-  .signup{background:var(--paper-2);border-top:1px solid var(--line)}
-  .form{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:22px 28px}
-  .field{display:flex;flex-direction:column;gap:8px}
-  .field.full{grid-column:1 / -1}
-  .field label,.field legend{font-size:15px;font-weight:500}
-  .field label .req,.field legend .req{color:#b4532a;margin-left:4px}
-  .field input,.field select,.field textarea{
-    font:inherit;font-size:16px;color:var(--ink);background:var(--paper);
-    border:1px solid var(--line);border-radius:6px;padding:12px 14px;width:100%;
-  }
-  .field textarea{min-height:120px;resize:vertical}
-  .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--forest);outline-offset:1px;background:var(--white)}
-  .consent{grid-column:1 / -1;display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:var(--ink-soft);background:var(--paper);border-radius:6px;padding:14px 16px}
-  .consent input{margin-top:6px;width:18px;height:18px;flex:none;accent-color:var(--forest)}
-  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-  .form-actions{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:18px}
-  .form-actions button{font:inherit;font-size:16px;background:var(--forest);color:var(--white);border:none;border-radius:6px;padding:14px 36px;cursor:pointer;transition:background .2s}
-  .form-actions button:hover{background:var(--forest-deep)}
-  .form-actions button:disabled{opacity:.6;cursor:wait}
-  .form-msg{font-size:15px}
-  .form-msg.ok{color:var(--forest)}
-  .form-msg.err{color:#b4532a}
-  @media (max-width:720px){
-    .form{grid-template-columns:1fr;padding:24px 16px}
-  }
-
-  footer{padding:56px 0 40px;text-align:center;font-size:14px;color:var(--ink-soft)}
-  footer .motto{font-family:"Noto Serif TC",serif;font-size:18px;color:var(--forest-deep);margin-bottom:18px;line-height:1.8}
-
-  @media (max-width:900px){
-    .services{grid-template-columns:1fr}
-    .about-grid{grid-template-columns:1fr;gap:36px}
-    .steps{grid-template-columns:1fr 1fr}
-    .step:nth-child(3){border-left:none}
-    .flow ol{grid-template-columns:1fr 1fr}
-    .principles{grid-template-columns:1fr}
-    .contact-box{grid-template-columns:1fr;padding:32px 24px}
-  }
-  @media (max-width:720px){
-    body{font-size:16px}
-    .wrap{padding:0 16px}
-    .menu-btn{display:block}
-    .nav ul{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line)}
-    .nav ul.open{display:flex}
-    .nav ul a{display:block;padding:14px 16px;border-top:1px solid var(--line)}
-    .hero{padding:72px 0 64px}
-    section{padding:64px 0}
-    .steps,.flow ol{grid-template-columns:1fr}
-    .step{border-left:none;border-top:1px solid rgba(255,255,255,.18)}
-    .step:first-child{border-top:none}
-  }
-</style>
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+      .card { padding: 18px; }
+      .actions { flex-direction: column-reverse; }
+      .actions button { width: 100%; }
+    }
+  </style>
 </head>
 <body>
+<div class="wrap">
+  <header>
+    <h1>企業諮詢時段調查</h1>
+    <p>請留下您的聯絡資料與方便的時段，我們的顧問會依您勾選的時間與您聯繫、安排諮詢。</p>
+  </header>
 
-<header>
-  <div class="wrap nav">
-    <a href="#top" class="brand"><b>亦麟國際</b><small>YI LIN INTERNATIONAL CONSULTING</small></a>
-    <button class="menu-btn" aria-label="開啟選單" onclick="document.getElementById('menu').classList.toggle('open')">選單</button>
-    <ul id="menu">
-      <li><a href="#about">關於我們</a></li>
-      <li><a href="#services">服務</a></li>
-      <li><a href="#method">方法</a></li>
-      <li><a href="#flow">合作流程</a></li>
-      <li><a href="#contact">聯絡</a></li>
-      <li><a href="#signup">報名</a></li>
-    </ul>
-  </div>
-</header>
-
-<main id="top">
-
-  <!-- Hero -->
-  <section class="hero">
-    <div class="wrap">
-      <p class="eyebrow">企業經營・永續轉型・世代傳承</p>
-      <h1>看清現況，走向永續，<br>把好企業穩穩交給下一代。</h1>
-      <p class="lead">亦麟國際顧問責任有限公司陪伴企業走過三個關鍵階段。我們從真實的經營現場出發，把複雜的財務、碳管理與治理議題，整理成企業能理解、能執行、能持續追蹤的方案。</p>
-      <div class="path" aria-label="服務路徑">
-        <span>企業健檢</span><i>→</i><span>企業永續</span><i>→</i><span>世代傳承</span>
-      </div>
-      <a href="#contact" class="btn">預約需求諮詢</a>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section class="about" id="about">
-    <div class="wrap about-grid">
-      <blockquote>好的企業，不只今天經營得好，更能把制度、人才與責任，交給下一代。</blockquote>
-      <div class="about-text">
-        <p class="eyebrow">關於亦麟國際</p>
-        <p>企業在不同階段面對的問題並不相同：有時需要先看清楚自己的體質，有時要回應客戶與供應鏈的減碳要求，有時則是創辦人開始思考交棒。</p>
-        <p>亦麟國際以「企業健檢 → 企業永續 → 世代傳承」為服務路徑，依企業的實際需求選擇切入點，不強迫依序採購，也不以推銷特定認證作為預設結論。涉及法律、稅務、審計或信託等需專業資格的事項，我們負責策略規劃與專案統籌，並與合格的律師、會計師及專業機構分工合作。</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services -->
-  <section id="services">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">我們的服務</p>
-        <h2>三個階段，一條連貫的路徑</h2>
-        <p>每個模組都可以獨立委託，也能依診斷結果銜接下一階段。</p>
-      </div>
-      <div class="services">
-
-        <article class="card">
-          <span class="num">A｜01</span>
-          <h3>企業健檢</h3>
-          <p class="sub">企業健檢與經營診斷</p>
-          <p class="q">企業現在處於什麼狀態？哪些問題應該優先改善？</p>
-          <ul>
-            <li><b>六大構面診斷</b>：財務經營、生產營運、環境永續、供應鏈、治理法遵、人力傳承</li>
-            <li><b>風險與差距分析</b>：區分事實、推論與建議，重大法遵風險不被平均分數掩蓋</li>
-            <li><b>改善路線</b>：排定優先順序與 3／6／12 個月行動計畫</li>
-          </ul>
-          <p class="note">交付：企業概況、六構面評估、風險清單、改善計畫與管理層摘要。</p>
-        </article>
-
-        <article class="card">
-          <span class="num">B｜02</span>
-          <h3>企業永續</h3>
-          <p class="sub">企業永續與低碳轉型</p>
-          <p class="q">排放從哪裡來？怎麼減、先從哪裡開始？</p>
-          <ul>
-            <li><b>組織碳盤查</b>：依 ISO 14064-1 / GHG Protocol 建立排放清冊與查證準備</li>
-            <li><b>產品碳足跡</b>：依 ISO 14067 盤點生命週期與排放熱點</li>
-            <li><b>減碳與能源轉型</b>：節能、設備汰換、再生能源，搭配投資成本與回收期評估</li>
-            <li><b>ESG 與供應鏈</b>：重大議題、供應商風險分級、客戶問卷與資訊揭露</li>
-          </ul>
-          <p class="note">原則：先推動實質減排，再評估碳權或碳中和主張；碳權不取代企業本身的減排行動。</p>
-        </article>
-
-        <article class="card">
-          <span class="num">C｜03</span>
-          <h3>世代傳承</h3>
-          <p class="sub">世代傳承與家族企業治理</p>
-          <p class="q">創辦人交棒後，企業如何持續穩定營運？</p>
-          <ul>
-            <li><b>接班與經營權</b>：候選人評估、培育授權、專業經理人制度，不預設由家族成員接班</li>
-            <li><b>股權與治理</b>：股權結構、表決權、股東協議與跨境風險盤點</li>
-            <li><b>家族治理</b>：家族憲章、家族會議、信託工具比較與家族辦公室可行性評估</li>
-          </ul>
-          <p class="note">交付：家族企業診斷、接班方案、治理建議與 3–5 年傳承路線圖。</p>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Method -->
-  <section class="method" id="method">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">我們的方法</p>
-        <h2>碳盤查是起點，不是終點</h2>
-        <p>它比較像一張地圖：先知道排放在哪裡，才知道下一步從哪裡改善。</p>
-      </div>
-      <div class="steps">
-        <div class="step"><b>看見</b><p>確認組織與報告邊界，找出能源、製程與供應鏈中的排放來源。</p></div>
-        <div class="step"><b>計算</b><p>蒐集活動數據、選用可追溯的係數，建立可被查證的基準。</p></div>
-        <div class="step"><b>改善</b><p>從熱點著手，設計兼顧成本、回收期與可行性的減碳方案。</p></div>
-        <div class="step"><b>持續追蹤</b><p>設定 KPI 與年度檢視機制，讓改善成為日常管理的一部分。</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Principles -->
-  <section>
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">我們的原則</p>
-        <h2>專業、務實、可落地</h2>
-      </div>
-      <div class="principles">
-        <div class="pr"><h3>數據有來源</h3><p>不虛構排放係數、減排量、財務數據或法規；明示資料來源、期間、邊界與假設，資料缺漏會清楚標示。</p></div>
-        <div class="pr"><h3>需求先於方案</h3><p>先確認企業的國家、產業、規模與目標，再提出分階段方案，不以單一認證或工具作為預設答案。</p></div>
-        <div class="pr"><h3>專業分工</h3><p>法律、稅務、審計、信託與查證事項，由合格的專業人士與機構確認，我們負責策略與專案統籌。</p></div>
-        <div class="pr"><h3>保護隱私</h3><p>只蒐集必要資料，重視資料保密與權限管理；涉及利益衝突的事項安排獨立審查。</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Flow -->
-  <section class="flow" id="flow">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">合作流程</p>
-        <h2>從一次需求對談開始</h2>
-      </div>
-      <ol>
-        <li><b>需求諮詢</b>了解產業、規模、目標與現有資料。</li>
-        <li><b>資料盤點</b>提供訪談提綱與資料需求清單。</li>
-        <li><b>診斷分析</b>產出現況評估、風險與差距分析。</li>
-        <li><b>方案規劃</b>排定優先順序與分階段路線圖。</li>
-        <li><b>執行追蹤</b>建立 KPI 與年度追蹤機制。</li>
+  <!-- ===== 使用說明 ===== -->
+  <section class="card">
+    <details class="guide" open>
+      <summary>使用說明</summary>
+      <ol class="steps">
+        <li><b>填寫基本資料</b><span>姓名、公司名稱為必填；聯繫電話請填寫可直接聯絡到您的號碼（手機或市話皆可）。</span></li>
+        <li><b>選擇諮詢方式與主題</b><span>可複選偏好的諮詢方式，並簡單說明想諮詢的內容，方便我們安排合適的顧問。</span></li>
+        <li><b>勾選可諮詢的時段</b><span>在時段表中點一下格子即可選取，再點一次取消。點「日期」可整欄全選，點「時段」可整列全選。請至少選擇 1 個時段，選越多越容易安排。</span></li>
+        <li><b>送出</b><span>確認資料無誤後按「送出調查」。出現成功訊息即代表已收到，顧問會在 2 個工作天內與您確認最終時間。</span></li>
       </ol>
-    </div>
+      <div class="note">ⓘ 時段表顯示未來兩週的工作日（週一至週五）。若以上時段都不方便，請在「備註」說明您可以的時間。</div>
+    </details>
   </section>
 
-  <!-- Contact -->
-  <section id="contact">
-    <div class="wrap">
-      <div class="contact-box">
-        <div>
-          <h2>想先聊聊企業目前的狀況？</h2>
-          <p>不需要先準備完整資料。告訴我們產業、規模與您最在意的問題，我們會協助判斷從哪一個模組開始最合適。</p>
-        </div>
-        <ul class="contact-list">
-          <!-- 請替換為實際聯絡資訊 -->
-          <li><span>電話</span>（請填入）</li>
-          <li><span>Email</span>（請填入）</li>
-          <li><span>地址</span>（請填入）</li>
-          <li><span>服務時間</span>（請填入）</li>
-        </ul>
+  <!-- ===== 表單 ===== -->
+  <form id="form" class="card" novalidate>
+    <h2>一、基本資料</h2>
+    <div class="grid">
+      <div>
+        <label class="f" for="name">姓名<span class="req">*</span></label>
+        <input type="text" id="name" required autocomplete="name" placeholder="王小明">
+      </div>
+      <div>
+        <label class="f" for="company">公司名稱<span class="req">*</span></label>
+        <input type="text" id="company" required autocomplete="organization" placeholder="範例股份有限公司">
+      </div>
+      <div>
+        <label class="f" for="phone">聯繫電話<span class="req">*</span></label>
+        <input type="tel" id="phone" required autocomplete="tel" placeholder="0912-345-678">
+      </div>
+      <div>
+        <label class="f" for="email">電子郵件</label>
+        <input type="email" id="email" autocomplete="email" placeholder="name@company.com">
+      </div>
+      <div>
+        <label class="f" for="industry">行業類別<span class="req">*</span></label>
+        <select id="industry" required>
+          <option value="">請選擇</option>
+          <option>製造業</option>
+          <option>批發零售業</option>
+          <option>資訊科技業</option>
+          <option>金融保險業</option>
+          <option>營建工程業</option>
+          <option>餐飲服務業</option>
+          <option>醫療生技業</option>
+          <option>教育服務業</option>
+          <option>物流運輸業</option>
+          <option value="__other">其他（自行填寫）</option>
+        </select>
+      </div>
+      <div id="industryOtherWrap" class="hidden">
+        <label class="f" for="industryOther">請填寫行業類別<span class="req">*</span></label>
+        <input type="text" id="industryOther" placeholder="例如：文創設計">
       </div>
     </div>
-  </section>
 
-  <!-- Signup form -->
-  <section class="signup" id="signup">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">線上報名</p>
-        <h2>報名諮詢或講座</h2>
-        <p>填寫以下資料後，我們會在收到報名後與您聯繫，確認時間與需求。標示 <span style="color:#b4532a">*</span> 為必填欄位。</p>
+    <h2 style="margin-top:28px">二、諮詢需求</h2>
+    <div class="grid">
+      <div class="full">
+        <span class="f" style="display:block;font-weight:600;margin-bottom:6px">偏好的諮詢方式<span class="req">*</span></span>
+        <div class="chips" id="modes">
+          <label><input type="checkbox" value="視訊會議"><span>視訊會議</span></label>
+          <label><input type="checkbox" value="電話諮詢"><span>電話諮詢</span></label>
+          <label><input type="checkbox" value="顧問到府"><span>顧問到府</span></label>
+          <label><input type="checkbox" value="至本公司面談"><span>至本公司面談</span></label>
+        </div>
       </div>
-
-      <form class="form" id="signupForm" novalidate>
-        <div class="field">
-          <label for="f-name">姓名<span class="req">*</span></label>
-          <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="50">
-        </div>
-        <div class="field">
-          <label for="f-company">公司／單位名稱<span class="req">*</span></label>
-          <input id="f-company" name="company" type="text" autocomplete="organization" required maxlength="100">
-        </div>
-        <div class="field">
-          <label for="f-title">職稱</label>
-          <input id="f-title" name="title" type="text" autocomplete="organization-title" maxlength="50">
-        </div>
-        <div class="field">
-          <label for="f-phone">聯絡電話<span class="req">*</span></label>
-          <input id="f-phone" name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="例如 0912-345-678">
-        </div>
-        <div class="field">
-          <label for="f-email">Email<span class="req">*</span></label>
-          <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="100">
-        </div>
-        <div class="field">
-          <label for="f-industry">產業別</label>
-          <input id="f-industry" name="industry" type="text" maxlength="50" placeholder="例如 金屬加工、食品製造">
-        </div>
-        <div class="field">
-          <label for="f-size">企業規模</label>
-          <select id="f-size" name="size">
-            <option value="">請選擇</option>
-            <option>10 人以下</option>
-            <option>11–50 人</option>
-            <option>51–200 人</option>
-            <option>201–500 人</option>
-            <option>500 人以上</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="f-item">報名項目<span class="req">*</span></label>
-          <select id="f-item" name="item" required>
-            <option value="">請選擇</option>
-            <option>企業健檢諮詢</option>
-            <option>企業永續與低碳轉型諮詢</option>
-            <option>世代傳承與家族治理諮詢</option>
-            <option>永續講座／課程</option>
-            <option>其他</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="f-people">預計參加人數</label>
-          <input id="f-people" name="people" type="number" min="1" max="500" value="1">
-        </div>
-        <div class="field full">
-          <label for="f-message">想了解的問題或需求說明</label>
-          <textarea id="f-message" name="message" maxlength="1000" placeholder="例如：客戶要求提供碳排數據，想了解碳盤查要從哪裡開始。"></textarea>
-        </div>
-
-        <!-- 防機器人欄位，真人看不到，請勿刪除 -->
-        <div class="hp" aria-hidden="true">
-          <label for="f-website">Website</label>
-          <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
-        </div>
-
-        <label class="consent">
-          <input type="checkbox" name="consent" id="f-consent" value="同意" required>
-          <span>我同意亦麟國際顧問責任有限公司蒐集並使用以上個人資料，僅用於本次報名聯繫、活動通知與服務諮詢，不會提供給第三方。<span class="req" style="color:#b4532a">*</span></span>
-        </label>
-
-        <div class="form-actions">
-          <button type="submit" id="f-submit">送出報名</button>
-          <span class="form-msg" id="f-msg" role="status" aria-live="polite"></span>
-        </div>
-      </form>
+      <div class="full">
+        <label class="f" for="topic">想諮詢的主題</label>
+        <textarea id="topic" placeholder="例如：數位轉型規劃、政府補助申請、內部流程改善…"></textarea>
+      </div>
     </div>
+
+    <h2 style="margin-top:28px">三、可諮詢時段<span class="req">*</span></h2>
+    <div class="toolbar">
+      <button type="button" id="selAm">全選上午</button>
+      <button type="button" id="selPm">全選下午</button>
+      <button type="button" id="clearAll">清除全部</button>
+      <span class="count">已選 <b id="count">0</b> 個時段</span>
+    </div>
+    <div class="table-scroll">
+      <table id="slotTable" aria-label="可諮詢時段表"></table>
+    </div>
+    <p class="hint">點格子選取／取消；點表頭日期整欄選取，點左側時段整列選取。</p>
+
+    <div class="grid" style="margin-top:16px">
+      <div class="full">
+        <label class="f" for="note">備註</label>
+        <textarea id="note" placeholder="其他需要我們知道的事，或上表以外您方便的時間"></textarea>
+      </div>
+    </div>
+
+    <div id="msg" class="msg" role="alert"></div>
+    <div class="actions">
+      <button type="reset" id="resetBtn">重新填寫</button>
+      <button type="submit" class="btn-primary" id="submitBtn">送出調查</button>
+    </div>
+  </form>
+
+  <!-- ===== 送出成功 ===== -->
+  <section id="done" class="card done hidden">
+    <div class="icon">✅</div>
+    <h2>感謝您的填寫！</h2>
+    <p id="doneText">我們已收到您的資料，顧問會在 2 個工作天內與您聯繫確認諮詢時間。</p>
+    <button type="button" id="againBtn">再填一份</button>
   </section>
-
-</main>
-
-<footer>
-  <div class="wrap">
-    <p class="motto">把海洋還給海洋，把森林還給森林，把大自然還給大家。</p>
-    <p>© <span id="y"></span> 亦麟國際顧問責任有限公司 Yi Lin International Consulting</p>
-  </div>
-</footer>
+</div>
 
 <script>
-  document.getElementById('y').textContent = new Date().getFullYear();
-  document.querySelectorAll('#menu a').forEach(a => a.addEventListener('click', () => document.getElementById('menu').classList.remove('open')));
+  /* ===== 時段設定（可依需求調整） ===== */
+  const DAYS_AHEAD = 14;           // 顯示未來幾天（只列工作日）
+  const TIME_SLOTS = [
+    { label: '09:00–10:30', period: 'am' },
+    { label: '10:30–12:00', period: 'am' },
+    { label: '13:30–15:00', period: 'pm' },
+    { label: '15:00–16:30', period: 'pm' },
+    { label: '16:30–18:00', period: 'pm' },
+  ];
+  const WEEK = ['日', '一', '二', '三', '四', '五', '六'];
 
-  /* ===== 報名表送出到 Google Sheet =====
-     部署 Apps Script 後，把「網頁應用程式網址」（結尾是 /exec）貼在下面 */
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4APeXYTklIFeoqVLCDqRp5s31wlO67qlAMDSjmjgyBET6K7GqRJdXQCOiB165fz9J/exec';
+  const $ = id => document.getElementById(id);
+  const selected = new Set();
 
-  const form = document.getElementById('signupForm');
-  const msg = document.getElementById('f-msg');
-  const btn = document.getElementById('f-submit');
+  function pad(n) { return String(n).padStart(2, '0'); }
 
-  function showMsg(text, type){
-    msg.textContent = text;
-    msg.className = 'form-msg ' + (type || '');
+  function buildDates() {
+    const out = [];
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    for (let i = 1; i <= DAYS_AHEAD; i++) {
+      const x = new Date(d);
+      x.setDate(d.getDate() + i);
+      const w = x.getDay();
+      if (w === 0 || w === 6) continue;
+      out.push({
+        key: x.getFullYear() + '-' + pad(x.getMonth() + 1) + '-' + pad(x.getDate()),
+        md: (x.getMonth() + 1) + '/' + x.getDate(),
+        week: '週' + WEEK[w],
+      });
+    }
+    return out;
   }
 
-  form.addEventListener('submit', async (e) => {
+  const DATES = buildDates();
+
+  function slotId(dateKey, slotLabel) { return dateKey + ' ' + slotLabel; }
+
+  function buildTable() {
+    const table = $('slotTable');
+    const thead = document.createElement('thead');
+    const hr = document.createElement('tr');
+    const corner = document.createElement('th');
+    corner.textContent = '時段 \\ 日期';
+    hr.appendChild(corner);
+    DATES.forEach(d => {
+      const th = document.createElement('th');
+      th.textContent = d.md;
+      const sm = document.createElement('small');
+      sm.textContent = d.week;
+      th.appendChild(sm);
+      th.title = '整欄選取／取消';
+      th.addEventListener('click', () => toggleGroup(TIME_SLOTS.map(s => slotId(d.key, s.label))));
+      hr.appendChild(th);
+    });
+    thead.appendChild(hr);
+
+    const tbody = document.createElement('tbody');
+    TIME_SLOTS.forEach(s => {
+      const tr = document.createElement('tr');
+      const th = document.createElement('th');
+      th.textContent = s.label;
+      th.title = '整列選取／取消';
+      th.addEventListener('click', () => toggleGroup(DATES.map(d => slotId(d.key, s.label))));
+      tr.appendChild(th);
+      DATES.forEach(d => {
+        const td = document.createElement('td');
+        td.className = 'slot';
+        td.dataset.id = slotId(d.key, s.label);
+        td.setAttribute('role', 'checkbox');
+        td.setAttribute('aria-checked', 'false');
+        td.setAttribute('aria-label', d.md + ' ' + d.week + ' ' + s.label);
+        td.tabIndex = 0;
+        td.addEventListener('click', () => toggle(td.dataset.id));
+        td.addEventListener('keydown', e => {
+          if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(td.dataset.id); }
+        });
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+    table.replaceChildren(thead, tbody);
+  }
+
+  function render() {
+    document.querySelectorAll('td.slot').forEach(td => {
+      const on = selected.has(td.dataset.id);
+      td.classList.toggle('on', on);
+      td.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+    $('count').textContent = selected.size;
+  }
+
+  function toggle(id) {
+    selected.has(id) ? selected.delete(id) : selected.add(id);
+    render();
+  }
+
+  // 群組內若全已選 → 全取消；否則 → 全選
+  function toggleGroup(ids) {
+    const allOn = ids.every(id => selected.has(id));
+    ids.forEach(id => allOn ? selected.delete(id) : selected.add(id));
+    render();
+  }
+
+  function selectPeriod(period) {
+    const ids = [];
+    DATES.forEach(d => TIME_SLOTS.filter(s => s.period === period).forEach(s => ids.push(slotId(d.key, s.label))));
+    toggleGroup(ids);
+  }
+
+  /* ===== 表單行為 ===== */
+  $('industry').addEventListener('change', e => {
+    $('industryOtherWrap').classList.toggle('hidden', e.target.value !== '__other');
+  });
+  $('selAm').addEventListener('click', () => selectPeriod('am'));
+  $('selPm').addEventListener('click', () => selectPeriod('pm'));
+  $('clearAll').addEventListener('click', () => { selected.clear(); render(); });
+  $('resetBtn').addEventListener('click', () => {
+    selected.clear(); render(); hideMsg();
+    $('industryOtherWrap').classList.add('hidden');
+  });
+  $('againBtn').addEventListener('click', () => {
+    $('form').reset(); selected.clear(); render(); hideMsg();
+    $('industryOtherWrap').classList.add('hidden');
+    $('done').classList.add('hidden'); $('form').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  function showMsg(text, type) {
+    const m = $('msg');
+    m.textContent = text;
+    m.className = 'msg ' + type;
+  }
+  function hideMsg() { $('msg').className = 'msg'; }
+
+  function collect() {
+    const v = id => $(id).value.trim();
+    const industry = v('industry') === '__other' ? v('industryOther') : v('industry');
+    const modes = [...document.querySelectorAll('#modes input:checked')].map(i => i.value);
+    const slots = [...selected].sort();
+    return {
+      name: v('name'),
+      company: v('company'),
+      phone: v('phone'),
+      email: v('email'),
+      industry: industry,
+      mode: modes.join('、'),
+      topic: v('topic'),
+      slots: slots,
+      note: v('note'),
+    };
+  }
+
+  function validate(d) {
+    if (!d.name) return ['請填寫姓名', 'name'];
+    if (!d.company) return ['請填寫公司名稱', 'company'];
+    if (!d.phone) return ['請填寫聯繫電話', 'phone'];
+    if (!/^[\d\s\-+()#]{8,20}$/.test(d.phone)) return ['聯繫電話格式不正確', 'phone'];
+    if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return ['電子郵件格式不正確', 'email'];
+    if (!d.industry) return ['請選擇或填寫行業類別', $('industry').value === '__other' ? 'industryOther' : 'industry'];
+    if (!d.mode) return ['請至少選擇一種諮詢方式', null];
+    if (!d.slots.length) return ['請至少勾選一個可諮詢時段', null];
+    return null;
+  }
+
+  $('form').addEventListener('submit', e => {
     e.preventDefault();
-
-    if (!form.checkValidity()) {
-      const firstInvalid = form.querySelector(':invalid');
-      if (firstInvalid) firstInvalid.focus();
-      showMsg('請確認必填欄位都已填寫，並勾選個資同意。', 'err');
+    const data = collect();
+    const err = validate(data);
+    if (err) {
+      showMsg(err[0], 'err');
+      if (err[1]) $(err[1]).focus();
       return;
     }
-    if (SCRIPT_URL.indexOf('PASTE_') === 0) {
-      showMsg('報名表尚未連接 Google Sheet，請先設定 SCRIPT_URL。', 'err');
-      return;
-    }
-
+    hideMsg();
+    const btn = $('submitBtn');
     btn.disabled = true;
     btn.textContent = '送出中…';
-    showMsg('');
 
-    const data = new URLSearchParams(new FormData(form));
-    data.append('page', location.href);
+    const onOk = res => {
+      btn.disabled = false; btn.textContent = '送出調查';
+      $('doneText').textContent =
+        data.name + ' 您好，我們已收到您勾選的 ' + data.slots.length +
+        ' 個時段，顧問會在 2 個工作天內與您聯繫確認諮詢時間。';
+      $('form').classList.add('hidden');
+      $('done').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    const onErr = error => {
+      btn.disabled = false; btn.textContent = '送出調查';
+      showMsg('送出失敗：' + (error && error.message ? error.message : error) + '。請稍後再試。', 'err');
+    };
 
-    try {
-      const res = await fetch(SCRIPT_URL, { method: 'POST', body: data });
-      const json = await res.json();
-      if (json.result === 'success') {
-        form.reset();
-        showMsg('報名已送出，謝謝您！我們會盡快與您聯繫。', 'ok');
-      } else {
-        showMsg(json.message || '送出失敗，請稍後再試，或直接以電話與我們聯繫。', 'err');
-      }
-    } catch (err) {
-      showMsg('網路連線發生問題，請稍後再試，或直接以電話與我們聯繫。', 'err');
-    } finally {
-      btn.disabled = false;
-      btn.textContent = '送出報名';
+    if (typeof google !== 'undefined' && google.script && google.script.run) {
+      google.script.run
+        .withSuccessHandler(onOk)
+        .withFailureHandler(onErr)
+        .submitConsultation(data);
+    } else {
+      // 非 Apps Script 環境（例如直接用瀏覽器開檔預覽）：只模擬送出
+      console.log('預覽模式，送出資料：', data);
+      setTimeout(() => onOk({ ok: true, preview: true }), 600);
     }
   });
+
+  buildTable();
+  render();
 </script>
 </body>
 </html>
