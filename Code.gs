@@ -1,5 +1,5 @@
 /**
- * 亦麟國際顧問｜企業介紹＋諮詢預約
+ * 亦麟國際顧問｜企業介紹＋諮詢預約＋企業經營者永續快速健檢
  * 網頁表單 → Notion「客戶資料」⇄ Google Sheets（Apps Script）
  *
  * 使用前：
@@ -11,6 +11,11 @@
  * 4. 執行一次 testAddCustomer() 完成授權（含寄信權限），確認寫得進 Notion、也收到通知信
  * 5. 部署 →「管理部署作業」→ 編輯 → 版本選「新版本」
  *      類型：網頁應用程式　執行身分：我　誰可以存取：所有人
+ *
+ * 健檢資料存放方式：
+ *  - Notion 欄位「健檢總分」（數字）、「健檢摘要」（各構面平均）
+ *  - 完整健檢內容（基本資料、三問、30 題分數與佐證、急迫風險）寫在該筆資料的頁面內文
+ *  - 通知信附上完整健檢內容
  */
 
 const NOTION_DATABASE_ID = '41934386b09480d7aae1e17d576963e3';
@@ -29,6 +34,8 @@ const EXTRA_COLUMNS = {
   '可諮詢時段': { rich_text: {} },
   'Email': { email: {} },
   '諮詢內容': { rich_text: {} },
+  '健檢總分': { number: { format: 'number' } },
+  '健檢摘要': { rich_text: {} },
   '填寫時間': { date: {} },
 };
 
@@ -40,7 +47,7 @@ const COLUMNS = BASE_COLUMNS.concat(Object.keys(EXTRA_COLUMNS));
 /** 開啟網址時顯示 index.html */
 function doGet() {
   return HtmlService.createHtmlOutputFromFile('index')
-    .setTitle('亦麟國際顧問｜企業介紹與諮詢預約')
+    .setTitle('亦麟國際顧問｜企業諮詢預約與永續快速健檢')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1');
 }
 
@@ -143,7 +150,8 @@ function valueToProp_(type, value) {
     case 'title':        return { title: text };
     case 'rich_text':    return { rich_text: text };
     case 'number': {
-      const n = Number(s.replace(/\D/g, ''));
+      // 保留小數點與負號（健檢總分如 2.45）
+      const n = Number(s.replace(/[^\d.\-]/g, ''));
       return { number: s && !isNaN(n) ? n : null };
     }
     case 'phone_number': return { phone_number: s || null };
@@ -159,7 +167,8 @@ function valueToProp_(type, value) {
 /* ========== 核心：寫入一筆諮詢預約 ========== */
 
 /**
- * @param {Object} d { name, company, phone, industry, email, service, message, slots }
+ * @param {Object} d { name, company, phone, industry, email, service, message, slots,
+ *                     healthcheck, healthSummary, healthScore }
  * 網頁（google.script.run 或 doPost）都呼叫這個函式
  */
 function submitConsultation(d) {
@@ -180,6 +189,9 @@ function submitConsultation(d) {
     slots: String(d.slots || '').trim(),
     email: String(d.email || '').trim(),
     message: String(d.message || '').trim(),
+    healthcheck: String(d.healthcheck || '').trim().slice(0, 50000),
+    healthSummary: String(d.healthSummary || '').trim(),
+    healthScore: String(d.healthScore || '').trim(),
     time: new Date(),
   };
 
@@ -218,6 +230,36 @@ function submitConsultation(d) {
   };
 }
 
+/** 把長文字切成 Notion 段落區塊（每段 ≤ 1900 字，依換行切） */
+function textToBlocks_(text) {
+  const blocks = [];
+  let buf = '';
+  const flush = () => {
+    if (!buf) return;
+    blocks.push({
+      object: 'block', type: 'paragraph',
+      paragraph: { rich_text: [{ type: 'text', text: { content: buf } }] },
+    });
+    buf = '';
+  };
+  text.split('\n').forEach(line => {
+    // 「■」開頭的行當作小標題
+    if (/^■/.test(line)) {
+      flush();
+      blocks.push({
+        object: 'block', type: 'heading_3',
+        heading_3: { rich_text: [{ type: 'text', text: { content: line.replace(/^■\s*/, '').slice(0, 1900) } }] },
+      });
+      return;
+    }
+    while (line.length > 1900) { flush(); buf = line.slice(0, 1900); flush(); line = line.slice(1900); }
+    if ((buf + '\n' + line).length > 1900) flush();
+    buf = buf ? buf + '\n' + line : line;
+  });
+  flush();
+  return blocks.slice(0, 100); // Notion 單次最多 100 個區塊
+}
+
 /** 把一筆預約寫進 Notion */
 function writeToNotion_(r) {
   const schema = getSchema_();
@@ -230,6 +272,8 @@ function writeToNotion_(r) {
     '可諮詢時段': r.slots,
     'Email': r.email,
     '諮詢內容': r.message,
+    '健檢總分': r.healthScore,
+    '健檢摘要': r.healthSummary,
     '填寫時間': Utilities.formatDate(r.time, Session.getScriptTimeZone(), "yyyy-MM-dd'T'HH:mm:ssXXX"),
   };
 
@@ -248,10 +292,14 @@ function writeToNotion_(r) {
     properties[titleCol] = { title: [{ text: { content: r.name } }] };
   }
 
-  const page = notionFetch_('/pages', 'post', {
+  const payload = {
     parent: { database_id: NOTION_DATABASE_ID },
     properties: properties,
-  });
+  };
+  // 完整健檢內容寫在頁面內文
+  if (r.healthcheck) payload.children = textToBlocks_(r.healthcheck);
+
+  const page = notionFetch_('/pages', 'post', payload);
   Logger.log('已新增：' + r.name + '（' + page.url + '）');
   return page;
 }
@@ -267,7 +315,7 @@ function esc_(v) {
 function sendNotifyMail_(r, page, notionError) {
   if (!NOTIFY_EMAIL) return;
   const when = Utilities.formatDate(r.time, Session.getScriptTimeZone(), 'yyyy/MM/dd HH:mm');
-  const slotCount = r.slots ? r.slots.split('\n').filter(Boolean).length : 0;
+  const slotCount = r.slots ? r.slots.split('\n').filter(s => s && !/^備註：/.test(s)).length : 0;
   const rows = [
     ['姓名', r.name],
     ['公司名稱', r.company],
@@ -277,15 +325,22 @@ function sendNotifyMail_(r, page, notionError) {
     ['諮詢服務', r.service || '（未填）'],
     ['可諮詢時段（' + slotCount + ' 個）', r.slots],
     ['諮詢內容', r.message || '（未填）'],
+    ['永續快速健檢', r.healthcheck ? r.healthSummary : '（未填寫）'],
     ['填寫時間', when],
   ];
 
   const subject = (notionError ? '【需處理】' : '') +
+    (r.healthcheck ? '【含健檢】' : '') +
     '新的企業諮詢預約：' + r.company + '／' + r.name;
 
   const statusLine = notionError
     ? '<p style="color:#B3402E"><b>⚠ 這筆資料沒有寫進 Notion，請手動補登。</b><br>錯誤：' + esc_(notionError) + '</p>'
     : (page ? '<p><a href="' + esc_(page.url) + '">在 Notion 開啟這筆資料</a></p>' : '');
+
+  const hcBlock = r.healthcheck
+    ? '<h3 style="margin:24px 0 8px">企業經營者永續快速健檢（完整內容）</h3>' +
+      '<div style="background:#F7FAF8;border:1px solid #CBDAD5;padding:12px 16px;font-size:14px">' + esc_(r.healthcheck) + '</div>'
+    : '';
 
   const html =
     '<div style="font-family:Arial,\'Microsoft JhengHei\',sans-serif;color:#12313A;line-height:1.7">' +
@@ -296,11 +351,12 @@ function sendNotifyMail_(r, page, notionError) {
       '<tr><th style="text-align:left;vertical-align:top;padding:8px 12px;background:#F2F6F4;border:1px solid #CBDAD5;white-space:nowrap">' +
       esc_(x[0]) + '</th><td style="padding:8px 12px;border:1px solid #CBDAD5">' + esc_(x[1]) + '</td></tr>'
     ).join('') +
-    '</table>' +
+    '</table>' + hcBlock +
     '<p style="color:#4A6769;font-size:13px;margin-top:16px">此信由網站預約表單自動寄出。' +
     (r.email ? '直接回覆此信即可回信給客戶。' : '') + '</p></div>';
 
   const plain = rows.map(x => x[0] + '：' + x[1]).join('\n') +
+    (r.healthcheck ? '\n\n' + r.healthcheck : '') +
     (notionError ? '\n\n⚠ Notion 寫入失敗：' + notionError : (page ? '\n\nNotion：' + page.url : ''));
 
   const options = { htmlBody: html, name: '亦麟國際網站預約' };
@@ -313,8 +369,10 @@ function sendNotifyMail_(r, page, notionError) {
 function testNotifyMail() {
   sendNotifyMail_({
     name: '王小明', company: '範例股份有限公司', phone: '0912345678', industry: '製造業',
-    service: '企業健檢', slots: '2026-11-23（一） 09:00–10:30\n2026-11-24（二） 13:30–15:00',
+    service: '企業經營者永續快速健檢', slots: '2026-11-30（一） 09:00–10:30\n2026-12-01（二） 13:30–15:00',
     email: 'test@example.com', message: '測試通知信', time: new Date(),
+    healthcheck: '【企業經營者永續快速健檢】\n整體平均：2.4（基礎）｜已作答 30/30\n\n■ 急迫風險\n測試',
+    healthSummary: '整體 2.4（30/30 題）', healthScore: '2.40',
   }, null, null);
   Logger.log('已寄出測試信到 ' + NOTIFY_EMAIL + '，今日剩餘額度：' + MailApp.getRemainingDailyQuota());
 }
@@ -389,9 +447,12 @@ function testAddCustomer() {
     phone: '0912345678',
     industry: '製造業',
     email: 'test@example.com',
-    service: '企業健檢',
+    service: '企業經營者永續快速健檢',
     message: '測試資料，可刪除',
-    slots: '2026-11-23（一） 09:00–10:30\n2026-11-24（二） 13:30–15:00',
+    slots: '2026-11-30（一） 09:00–10:30\n2026-12-01（二） 13:30–15:00',
+    healthcheck: '【企業經營者永續快速健檢】\n整體平均：2.4（基礎）｜已作答 30/30\n\n■ 基本資料\n- 公司名稱：範例股份有限公司\n\n■ 急迫風險\n測試資料',
+    healthSummary: '整體 2.4（30/30 題）｜策略治理 2.6／財務營運 2.2',
+    healthScore: '2.40',
   });
   Logger.log(JSON.stringify(res));
 }
